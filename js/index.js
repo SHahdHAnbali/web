@@ -3,15 +3,17 @@ let cartCount = 0;
 let wishlistCount = 0;
 let isInWishlistDetail = false;
 let currentProductData = null;
+let cartItems = [];
+let selectedSize = 'M';
 
 const productData = {
   1: {
-    title: "Blue Barn",
+    title: "Embroidered Red Thobe",
     price: "NIS 120.00",
-    image: "image_pottery/blue_pottery.webp",
-    sku: "BLUE-BARN-001",
+    image: "image/web images/dress1.webp",
+    sku: "RED-THOBE-001",
     description: "This exquisite hand-embroidered Palestinian thobe features traditional red and black motifs, showcasing the rich cultural heritage of Palestine. Each piece is carefully crafted by skilled artisans, making every thobe a unique work of art.",
-    sizes: ["S", "M", "L"]
+    sizes: ["S", "M", "L", "XL"]
   },
   2: {
     title: "Embroidered Blue Thobe",
@@ -53,8 +55,54 @@ const productData = {
     description: "Luxurious purple thobe with ornate embroidery. This premium piece showcases the finest Palestinian craftsmanship with elegant detailing.",
     sizes: ["S", "M", "L", "XL"]
   },
- 
-    
+  7: {
+    title: "Embroidered Green Thobe",
+    price: "NIS 250.00",
+    image: "image/web images/dress7.avif",
+    sku: "GREEN-THOBE-007",
+    description: "Classic green thobe with authentic Palestinian embroidery. Traditional style meets quality materials in this timeless piece.",
+    sizes: ["M", "L", "XL"]
+  },
+  8: {
+    title: "Embroidered Blue Thobe",
+    price: "NIS 300.00",
+    image: "image/web images/dress8.webp",
+    sku: "BLUE-THOBE-008",
+    description: "Vibrant blue thobe featuring traditional motifs. Handmade with care, this piece represents cultural heritage at its finest.",
+    sizes: ["S", "M", "L"]
+  },
+  9: {
+    title: "Embroidered Orange Thobe",
+    price: "NIS 250.00",
+    image: "image/web images/dress9.jpg",
+    sku: "ORANGE-THOBE-009",
+    description: "Warm orange thobe with beautiful embroidered details. Eye-catching design that celebrates Palestinian artistic traditions.",
+    sizes: ["XS", "S", "M", "L", "XL"]
+  },
+  10: {
+    title: "Embroidered Red Thobe",
+    price: "NIS 200.00",
+    image: "image/web images/dress10.webp",
+    sku: "RED-THOBE-010",
+    description: "Bold red thobe with striking embroidery patterns. Authentic craftsmanship using high-quality fabric for lasting beauty.",
+    sizes: ["M", "L", "XL"]
+  },
+  11: {
+    title: "Embroidered Blue Thobe",
+    price: "NIS 400.00",
+    image: "image/web images/dress11.webp",
+    sku: "BLUE-THOBE-011",
+    description: "Premium blue thobe with exquisite embroidery work. Luxury fabric and master craftsmanship combine in this exceptional piece.",
+    sizes: ["S", "M", "L", "XL", "XXL"]
+  },
+  12: {
+    title: "Embroidered Purple Thobe",
+    price: "NIS 500.00",
+    image: "image/web images/dress12.webp",
+    sku: "PURPLE-THOBE-012",
+    description: "Exclusive purple thobe with premium embroidery details. A unique collectible piece showcasing the pinnacle of Palestinian textile artistry.",
+    sizes: ["M", "L", "XL"]
+  }
 };
 
 function showShopPage() {
@@ -86,7 +134,7 @@ function showProductPage(productId) {
   const sizeOptionsContainer = document.querySelector('.size-options');
   sizeOptionsContainer.innerHTML = ''; // Clear existing sizes
   
-  const allSizes = [ "S", "M", "L"];
+  const allSizes = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
   const availableSizes = product.sizes || [];
   
   let firstAvailableAdded = false;
@@ -182,10 +230,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addToCart = function(e) {
     if (e) e.stopPropagation();
-    cartCount++;
-    document.getElementById('cart-count').textContent = cartCount;
-    animateBadge('cart-count');
-    alert('Added to cart!');
+    
+    // Get the product element
+    const productElement = e.target.closest('.product');
+    if (!productElement) return;
+    
+    const productId = productElement.getAttribute('data-id');
+    const product = productData[productId];
+    
+    if (!product) return;
+    
+    const cartItem = {
+      id: Date.now(),
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      size: product.sizes[0], // Use first available size
+      quantity: 1
+    };
+    
+    // Check if same product with same size exists
+    const existingItemIndex = cartItems.findIndex(
+      item => item.title === cartItem.title && item.size === cartItem.size
+    );
+    
+    if (existingItemIndex >= 0) {
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      cartItems.push(cartItem);
+    }
+    
+    updateCartDisplay();
+    toggleCart();
   };
 
   function animateBadge(id) {
@@ -333,6 +409,11 @@ document.addEventListener('DOMContentLoaded', () => {
   applyFilters();
 });
 
+// Initialize cart on load
+window.addEventListener('DOMContentLoaded', function() {
+  updateCartDisplay();
+});
+
 function changeImage(thumbnail) {
   document.getElementById('mainImage').src = thumbnail.src;
   document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
@@ -347,6 +428,125 @@ function selectSize(element) {
   
   document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
   element.classList.add('active');
+  selectedSize = element.textContent;
+}
+
+// Make functions globally accessible
+window.toggleCart = function() {
+  const cartSidebar = document.getElementById('cartSidebar');
+  const cartOverlay = document.getElementById('cartOverlay');
+  
+  cartSidebar.classList.toggle('active');
+  cartOverlay.classList.toggle('active');
+  
+  if (cartSidebar.classList.contains('active')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+window.updateCartDisplay = function() {
+  const cartItemsContainer = document.getElementById('cartItemsContainer');
+  const cartItemsCount = document.getElementById('cart-items-count');
+  const cartSubtotal = document.getElementById('cartSubtotal');
+  const cartCountBadge = document.getElementById('cart-count');
+  
+  cartItemsCount.textContent = cartItems.length;
+  cartCountBadge.textContent = cartItems.length;
+  
+  if (cartItems.length === 0) {
+    cartItemsContainer.innerHTML = `
+      <div class="cart-empty">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <p>Your bag is empty</p>
+      </div>
+    `;
+    cartSubtotal.textContent = 'NIS 0.00';
+    return;
+  }
+  
+  let subtotal = 0;
+  cartItemsContainer.innerHTML = '';
+  
+  cartItems.forEach((item, index) => {
+    const itemTotal = parseFloat(item.price.replace(/[^\d.]/g, '')) * item.quantity;
+    subtotal += itemTotal;
+    
+    const cartItemHTML = `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+        <div class="cart-item-details">
+          <h3 class="cart-item-title">${item.title}</h3>
+          <div class="cart-item-price">${item.price}</div>
+          <div class="cart-item-info"><strong>Size:</strong> ${item.size}</div>
+          <div class="cart-item-controls">
+            <div class="cart-quantity-controls">
+              <button class="cart-quantity-btn" onclick="updateCartQuantity(${index}, -1)">−</button>
+              <span class="cart-quantity-display">${item.quantity}</span>
+              <button class="cart-quantity-btn" onclick="updateCartQuantity(${index}, 1)">+</button>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})">Remove</button>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    cartItemsContainer.innerHTML += cartItemHTML;
+  });
+  
+  cartSubtotal.textContent = `NIS ${subtotal.toFixed(2)}`;
+}
+
+window.updateCartQuantity = function(index, change) {
+  if (cartItems[index]) {
+    cartItems[index].quantity += change;
+    
+    if (cartItems[index].quantity <= 0) {
+      removeFromCart(index);
+    } else {
+      updateCartDisplay();
+    }
+  }
+}
+
+window.removeFromCart = function(index) {
+  cartItems.splice(index, 1);
+  updateCartDisplay();
+}
+
+function addToCartFromDetail() {
+  if (!currentProductData) return;
+  
+  const selectedSizeElement = document.querySelector('.size-option.active');
+  const selectedSize = selectedSizeElement ? selectedSizeElement.textContent : 'M';
+  
+  const cartItem = {
+    id: Date.now(),
+    title: currentProductData.title,
+    price: currentProductData.price,
+    image: currentProductData.image,
+    size: selectedSize,
+    quantity: quantity
+  };
+  
+  // Check if same product with same size exists
+  const existingItemIndex = cartItems.findIndex(
+    item => item.title === cartItem.title && item.size === cartItem.size
+  );
+  
+  if (existingItemIndex >= 0) {
+    cartItems[existingItemIndex].quantity += quantity;
+  } else {
+    cartItems.push(cartItem);
+  }
+  
+  updateCartDisplay();
+  toggleCart();
+  
+  // Reset quantity to 1
+  quantity = 1;
+  document.getElementById('quantity').textContent = quantity;
 }
 
 function increaseQuantity() {
@@ -362,14 +562,37 @@ function decreaseQuantity() {
 }
 
 function addToCartFromDetail() {
-  cartCount += quantity;
-  document.getElementById('cart-count').textContent = cartCount;
+  if (!currentProductData) return;
   
-  const badge = document.getElementById('cart-count');
-  badge.classList.add('animate');
-  setTimeout(() => badge.classList.remove('animate'), 300);
-
-  alert(`Added ${quantity} item(s) to cart!`);
+  const selectedSizeElement = document.querySelector('.size-option.active');
+  const selectedSize = selectedSizeElement ? selectedSizeElement.textContent : 'M';
+  
+  const cartItem = {
+    id: Date.now(),
+    title: currentProductData.title,
+    price: currentProductData.price,
+    image: currentProductData.image,
+    size: selectedSize,
+    quantity: quantity
+  };
+  
+  // Check if same product with same size exists
+  const existingItemIndex = cartItems.findIndex(
+    item => item.title === cartItem.title && item.size === cartItem.size
+  );
+  
+  if (existingItemIndex >= 0) {
+    cartItems[existingItemIndex].quantity += quantity;
+  } else {
+    cartItems.push(cartItem);
+  }
+  
+  updateCartDisplay();
+  toggleCart();
+  
+  // Reset quantity to 1
+  quantity = 1;
+  document.getElementById('quantity').textContent = quantity;
 }
 
 function toggleWishlistDetail() {
