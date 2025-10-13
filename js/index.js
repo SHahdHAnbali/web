@@ -106,8 +106,34 @@ const productData = {
 };
 
 function showShopPage() {
+  // Hide all pages
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  // Show shop page
   document.getElementById('shopPage').classList.add('active');
-  document.getElementById('productPage').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+window.showLoginPage = function() {
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  document.getElementById('loginPage').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+window.showTrackOrderPage = function() {
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  document.getElementById('trackOrderPage').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+window.showStoreLocatorPage = function() {
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  document.getElementById('storeLocatorPage').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+window.showContactPage = function() {
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  document.getElementById('contactPage').classList.add('active');
   window.scrollTo(0, 0);
 }
 
@@ -164,9 +190,57 @@ function showProductPage(productId) {
     sizeOptionsContainer.appendChild(sizeDiv);
   });
 
-  document.getElementById('shopPage').classList.remove('active');
+  // Hide all pages, show product page
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
   document.getElementById('productPage').classList.add('active');
   window.scrollTo(0, 0);
+}
+
+// Form handlers
+window.handleLogin = function(event) {
+  event.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  
+  // Here you would typically send this to your backend
+  alert(`Login attempted with:\nEmail: ${email}\nPassword: ${password.replace(/./g, '*')}`);
+  
+  // For demo purposes, just show success message
+  alert('Login successful! (Demo mode)');
+}
+
+window.handleTrackOrder = function(event) {
+  event.preventDefault();
+  const orderNumber = document.getElementById('order-number').value;
+  const email = document.getElementById('order-email').value;
+  
+  alert(`Tracking order:\nOrder #: ${orderNumber}\nEmail: ${email}\n\nOrder Status: In Transit\nExpected Delivery: 3-5 business days`);
+}
+
+window.searchStores = function() {
+  const searchInput = document.getElementById('store-search-input').value;
+  if (searchInput) {
+    alert(`Searching for stores near: ${searchInput}\n\nShowing all available stores...`);
+  } else {
+    alert('Please enter a city or postal code to search.');
+  }
+}
+
+window.handleContact = function(event) {
+  event.preventDefault();
+  const name = document.getElementById('contact-name').value;
+  const email = document.getElementById('contact-email').value;
+  const subject = document.getElementById('contact-subject').value;
+  const message = document.getElementById('contact-message').value;
+  
+  alert(`Message sent successfully!\n\nFrom: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nWe'll get back to you within 24 hours.`);
+  
+  // Reset form
+  event.target.reset();
+}
+
+window.showRegisterForm = function() {
+  alert('Register form would appear here. (Not implemented in demo)');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
