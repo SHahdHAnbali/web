@@ -6,21 +6,19 @@
 <title>الثوب الفلسطيني</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="css/index.css">
-
 </head>
 <body>
-<div class="header-decoration">
-</div>
+<div class="header-decoration"></div>
 
 <div class="header">
 <div class="header-left">
   <img src="image/web images/logo.jpeg" alt="Logo" onclick="showShopPage()">
 </div>
 <div class="header-right">
-  <a href="#">عربي</a>
-  <a href="#"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
-  <a href="#"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
-  <a href="#"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
+  <a href="#">English</a>
+  <a href="#" onclick="showTrackOrderPage(); return false;"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
+  <a href="#" onclick="showStoreLocatorPage(); return false;"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
+  <a href="#" onclick="showContactPage(); return false;"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
 
   <div class="icon-badge" onclick="toggleCart()">
     <i class="fa-solid fa-bag-shopping"></i>
@@ -32,7 +30,7 @@
     <span class="badge-pill" id="wishlist-count">0</span>
   </div>
 
-  <a href="#"><i class="fa-solid fa-user"></i> <span>Login</span></a>
+  <a href="#" onclick="showLoginPage(); return false;"><i class="fa-solid fa-user"></i> <span>Login</span></a>
   <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
   <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
 </div>
@@ -428,6 +426,288 @@
 </div>
 </div>
 
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="page-content">
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">Sign in to your account</p>
+      
+      <form class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" placeholder="your.email@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+        
+        <button type="submit" class="auth-btn">Sign In</button>
+        
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+        
+        <button type="button" class="social-btn google-btn">
+          <i class="fa-brands fa-google"></i>
+          Continue with Google
+        </button>
+        
+        <button type="button" class="social-btn facebook-btn">
+          <i class="fa-brands fa-facebook-f"></i>
+          Continue with Facebook
+        </button>
+        
+        <p class="auth-switch">
+          Don't have an account? <a href="#" onclick="showRegisterForm()">Sign Up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- TRACK ORDER PAGE -->
+<div id="trackOrderPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-truck"></i>
+      <h2>Track Your Order</h2>
+      <p>Enter your order number to track your shipment</p>
+    </div>
+    
+    <div class="track-form-container">
+      <form class="track-form" onsubmit="handleTrackOrder(event)">
+        <div class="form-group">
+          <label for="order-number">Order Number</label>
+          <input type="text" id="order-number" placeholder="e.g., ORD-12345" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="order-email">Email Address</label>
+          <input type="email" id="order-email" placeholder="your.email@example.com" required>
+        </div>
+        
+        <button type="submit" class="info-btn">Track Order</button>
+      </form>
+      
+      <div class="track-info">
+        <h3>How to find your order number?</h3>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Check your order confirmation email</li>
+          <li><i class="fa-solid fa-check"></i> Look in your account order history</li>
+          <li><i class="fa-solid fa-check"></i> Contact customer support if you can't find it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORE LOCATOR PAGE -->
+<div id="storeLocatorPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-location-dot"></i>
+      <h2>Store Locator</h2>
+      <p>Find our stores near you</p>
+    </div>
+    
+    <div class="store-search">
+      <input type="text" placeholder="Enter city or postal code" id="store-search-input">
+      <button class="info-btn" onclick="searchStores()">
+        <i class="fa-solid fa-search"></i> Search
+      </button>
+    </div>
+    
+    <div class="stores-grid">
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Ramallah Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Main Street, Ramallah, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:00 AM - 8:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 123 4567
+        </p>
+        <button class="store-btn">Get Directions</button>
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Nablus Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Old City, Nablus, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 10:00 AM - 7:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 9 234 5678
+        </p>
+        <button class="store-btn">Get Directions</button>
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Bethlehem Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Manger Square, Bethlehem, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:00 AM - 9:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 345 6789
+        </p>
+        <button class="store-btn">Get Directions</button>
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Hebron Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Al-Khalil, Hebron, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:30 AM - 7:30 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 456 7890
+        </p>
+        <button class="store-btn">Get Directions</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT US PAGE -->
+<div id="contactPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-phone"></i>
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you</p>
+    </div>
+    
+    <div class="contact-content">
+      <div class="contact-form-section">
+        <h3>Send us a Message</h3>
+        <form class="contact-form" onsubmit="handleContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" placeholder="your.email@example.com" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" placeholder="How can we help?" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          
+          <button type="submit" class="info-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <div class="contact-info-section">
+        <h3>Get in Touch</h3>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div>
+            <h4>Address</h4>
+            <p>Main Street, Ramallah<br>West Bank, Palestine</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <h4>Phone</h4>
+            <p>+970 2 123 4567<br>+970 59 123 4567</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <h4>Email</h4>
+            <p>info@anamlpalestine.com<br>support@anamlpalestine.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Sunday - Thursday: 9:00 AM - 8:00 PM<br>Friday - Saturday: Closed</p>
+          </div>
+        </div>
+        
+        <div class="contact-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="quickViewModal" class="modal">
 <div class="modal-content">
   <span class="close">&times;</span>
@@ -449,7 +729,7 @@
 <!-- SHOPPING CART SIDEBAR -->
 <div id="cartSidebar" class="cart-sidebar">
   <div class="cart-header">
-    <h2>MY CART (<span id="cart-items-count">0</span>)</h2>
+    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
     <button class="cart-close" onclick="toggleCart()">&times;</button>
   </div>
   
