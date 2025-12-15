@@ -1,65 +1,38 @@
 let quantity = 1;
-let cartCount = 0;
-let wishlistCount = 0;
-let isInWishlistDetail = false;
 let currentProductData = null;
+let selectedSize = '35';
 
+// Product Database - HEELS
 const productData = {
   1: {
-    title: "Blue Barn",
+    title: "Burgundy Mini Bag",
     price: "NIS 120.00",
-    image: "image_pottery/blue_pottery.webp",
-    sku: "BLUE-BARN-001",
-    description: "This exquisite hand-embroidered Palestinian thobe features traditional red and black motifs, showcasing the rich cultural heritage of Palestine. Each piece is carefully crafted by skilled artisans, making every thobe a unique work of art.",
-    sizes: ["S", "M", "L"]
+    image: "bags/strath_burgundy1.png",
+    images: ["bags/strath_burgundy1.png", "bags/strath_burgundy2.png", "bags/strath_burgundy4.png", "bags/strath_burgundy3.png"],
+    sku: "BURGUNDY-BAG-001",
+    description: "The cult favourite, reimagined. The Mosaic Nano Bag takes Strathberry's beloved best-seller...",
+    category: ["mini bag"]
   },
   2: {
-    title: "Embroidered Blue Thobe",
-    price: "NIS 300.00",
-    image: "image/web images/dress2.webp",
-    sku: "BLUE-THOBE-002",
-    description: "Beautiful blue Palestinian thobe with intricate embroidery patterns. This stunning piece represents the timeless beauty of traditional Palestinian craftsmanship with modern elegance.",
-    sizes: ["M", "L", "XL"]
-  },
-  3: {
-    title: "Embroidered Green Thobe",
+    title: "Black Leather Tote",
     price: "NIS 250.00",
-    image: "image/web images/dress3.jpg",
-    sku: "GREEN-THOBE-003",
-    description: "Elegant green thobe featuring authentic Palestinian embroidery. The vibrant color and detailed patterns make this a perfect choice for celebrating cultural heritage.",
-    sizes: ["S", "M", "L"]
-  },
-  4: {
-    title: "Embroidered Pink Thobe",
-    price: "NIS 150.00",
-    image: "image/web images/dress4.jpg",
-    sku: "PINK-THOBE-004",
-    description: "Delicate pink thobe perfect for special occasions. This beautiful piece combines traditional embroidery techniques with a soft, feminine color palette.",
-    sizes: ["XS", "S", "M", "L"]
-  },
-  5: {
-    title: "Embroidered Blue Thobe",
-    price: "NIS 300.00",
-    image: "image/web images/dress5.webp",
-    sku: "BLUE-THOBE-005",
-    description: "Stunning blue thobe with detailed embroidery work. Each stitch tells a story of Palestinian heritage and artistic excellence.",
-    sizes: ["M", "L", "XL", "XXL"]
-  },
-  6: {
-    title: "Embroidered Purple Thobe",
-    price: "NIS 330.00",
-    image: "image/web images/dress6.jpg",
-    sku: "PURPLE-THOBE-006",
-    description: "Luxurious purple thobe with ornate embroidery. This premium piece showcases the finest Palestinian craftsmanship with elegant detailing.",
-    sizes: ["S", "M", "L", "XL"]
-  },
- 
-    
+    image: "bags/black_tote.png",
+    images: ["bags/black_tote.png", "bags/black_tote.png", "bags/black_tote.png", "bags/black_tote.png"],
+    sku: "BLACK-TOTE-002",
+    description: "Spacious and elegant leather tote bag...",
+    category: ["shoulder bag"]
+  }
+  // Add more bag products here
 };
 
+// ============================================
+// PAGE NAVIGATION
+// ============================================
+
 function showShopPage() {
-  document.getElementById('shopPage').classList.add('active');
-  document.getElementById('productPage').classList.remove('active');
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  const shopPage = document.getElementById('shopPage');
+  if (shopPage) shopPage.classList.add('active');
   window.scrollTo(0, 0);
 }
 
@@ -69,26 +42,46 @@ function showProductPage(productId) {
 
   currentProductData = product;
   
+  // Update product details
   document.getElementById('detailTitle').textContent = product.title;
   document.getElementById('detailPrice').textContent = product.price;
   document.getElementById('detailSKU').textContent = product.sku;
-  document.getElementById('mainImage').src = product.image;
+  document.getElementById('mainImage').src = product.images ? product.images[0] : product.image;
   document.getElementById('breadcrumbProduct').textContent = product.title;
   
   const descDiv = document.getElementById('detailDescription');
-  descDiv.innerHTML = `<p>${product.description}</p><p>The intricate embroidery patterns tell stories of Palestinian tradition and history, passed down through generations. Perfect for special occasions or as a statement piece celebrating cultural identity.</p>`;
+  descDiv.innerHTML = `<p>${product.description}</p>`;
 
-  document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
-    thumb.src = product.image;
+  // Update thumbnails
+  const thumbnailContainer = document.querySelector('.thumbnail-container');
+  const productImages = product.images || [product.image, product.image, product.image, product.image];
+  
+  thumbnailContainer.innerHTML = '';
+  productImages.forEach((imgSrc, index) => {
+    const thumb = document.createElement('img');
+    thumb.src = imgSrc;
+    thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+    thumb.onclick = function() { changeImage(this); };
+    thumbnailContainer.appendChild(thumb);
   });
 
-  // Update available sizes based on product data
+  // Update available sizes
+  updateSizeOptions(product);
+
+  // Show product page
+  document.querySelectorAll('.page-content').forEach(page => page.classList.remove('active'));
+  const productPage = document.getElementById('productPage');
+  if (productPage) productPage.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function updateSizeOptions(product) {
   const sizeOptionsContainer = document.querySelector('.size-options');
-  sizeOptionsContainer.innerHTML = ''; // Clear existing sizes
+  if (!sizeOptionsContainer) return;
   
-  const allSizes = [ "S", "M", "L"];
-  const availableSizes = product.sizes || [];
-  
+  sizeOptionsContainer.innerHTML = '';
+  const allSizes = ["mini bag", "cross body", "shoulder bag", "clutch", "wallets"];
+  const availableSizes = product.category || [];
   let firstAvailableAdded = false;
   
   allSizes.forEach((size) => {
@@ -96,33 +89,135 @@ function showProductPage(productId) {
     sizeDiv.className = 'size-option';
     sizeDiv.textContent = size;
     
-    // Check if this size is available
     if (availableSizes.includes(size)) {
-      // Size is available - make it clickable
       sizeDiv.onclick = function() { selectSize(this); };
       
-      // Make first available size active
       if (!firstAvailableAdded) {
         sizeDiv.classList.add('active');
+        selectedSize = size;
         firstAvailableAdded = true;
       }
     } else {
-      // Size is NOT available - disable it
       sizeDiv.classList.add('disabled');
-      sizeDiv.style.cursor = 'not-allowed';
-      sizeDiv.style.opacity = '0.3';
     }
     
     sizeOptionsContainer.appendChild(sizeDiv);
   });
-
-  document.getElementById('shopPage').classList.remove('active');
-  document.getElementById('productPage').classList.add('active');
-  window.scrollTo(0, 0);
 }
+
+// ============================================
+// PRODUCT INTERACTION
+// ============================================
+
+window.changeImage = function(thumbnail) {
+  document.getElementById('mainImage').src = thumbnail.src;
+  document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+  thumbnail.classList.add('active');
+};
+
+window.selectSize = function(element) {
+  if (element.classList.contains('disabled')) return;
+  
+  document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+  element.classList.add('active');
+  selectedSize = element.textContent;
+};
+
+window.selectColor = function(element) {
+  if (element.classList.contains('disabled')) return;
+  
+  document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+  element.classList.add('active');
+  
+  const colorName = element.getAttribute('data-color');
+  const colorNameDisplay = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+  const colorNameEl = document.getElementById('selectedColorName');
+  if (colorNameEl) colorNameEl.textContent = colorNameDisplay;
+};
+
+window.increaseQuantity = function() {
+  quantity++;
+  document.getElementById('quantity').textContent = quantity;
+};
+
+window.decreaseQuantity = function() {
+  if (quantity > 1) {
+    quantity--;
+    document.getElementById('quantity').textContent = quantity;
+  }
+};
+
+// ============================================
+// CART FUNCTIONS - INTEGRATED WITH SHARED CART
+// ============================================
+
+window.addToCart = function(e) {
+  if (e) e.stopPropagation();
+  
+  const productElement = e.target.closest('.product');
+  if (!productElement) return;
+  
+  const productId = productElement.getAttribute('data-id');
+  const product = productData[productId];
+  if (!product) return;
+  
+  const cartItem = {
+    title: product.title,
+    price: product.price,
+    image: product.image,
+    size: (product.sizes && product.sizes[0]) || '35',
+    quantity: 1
+  };
+  
+  addToCartGlobal(cartItem);
+  toggleCart();
+};
+
+window.addToCartFromDetail = function() {
+  if (!currentProductData) return;
+  
+  const cartItem = {
+    title: currentProductData.title,
+    price: currentProductData.price,
+    image: currentProductData.image,
+    size: selectedSize,
+    quantity: quantity
+  };
+  
+  addToCartGlobal(cartItem);
+  toggleCart();
+  
+  quantity = 1;
+  document.getElementById('quantity').textContent = quantity;
+};
+
+// ============================================
+// WISHLIST FUNCTIONS
+// ============================================
+
+window.toggleWishlistDetail = function() {
+  if (!currentProductData) return;
+  
+  const productId = Object.keys(productData).find(
+    key => productData[key].title === currentProductData.title
+  );
+  
+  const isAdded = toggleWishlistItem(productId);
+  
+  const icon = document.getElementById('wishlistIconDetail');
+  if (icon) {
+    icon.style.color = isAdded ? '#e74c3c' : '';
+  }
+};
+
+// ============================================
+// FILTERS & SEARCH
+// ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.querySelector('.products');
+  if (!productsContainer) return;
+
   const searchInput = document.getElementById('search-input');
   const searchBtn = document.getElementById('search-btn');
   const sidebarSearch = document.getElementById('sidebar-search');
@@ -141,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function attachProductListeners() {
+    // Wishlist buttons
     document.querySelectorAll('.wishlist').forEach(btn => {
       btn.replaceWith(btn.cloneNode(true));
     });
@@ -148,26 +244,34 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.wishlist').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        btn.classList.toggle('active');
-        wishlistCount = document.querySelectorAll('.wishlist.active').length;
-        document.getElementById('wishlist-count').textContent = wishlistCount;
-        animateBadge('wishlist-count');
+        const productElement = btn.closest('.product');
+        const productId = productElement.getAttribute('data-id');
+        
+        const isAdded = toggleWishlistItem(productId);
+        if (isAdded) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
       });
     });
 
+    // Quick view buttons
     document.querySelectorAll('.quick-view-btn').forEach(button => {
       button.addEventListener('click', (e) => {
         e.stopPropagation();
+        const modal = document.getElementById('quickViewModal');
         document.getElementById('modalImage').src = button.dataset.image;
         document.getElementById('modalTitle').textContent = button.dataset.title;
         document.getElementById('modalDescription').textContent = button.dataset.description;
-        document.getElementById('modalSizes').textContent = button.dataset.sizes;
+        document.getElementById('modalSizes').textContent = button.dataset.sizes || 'Standard';
         document.getElementById('modalStatus').textContent = button.dataset.status;
         document.getElementById('modalFeatures').textContent = button.dataset.features;
         modal.style.display = 'flex';
       });
     });
 
+    // Product click to detail
     document.querySelectorAll('.product').forEach(product => {
       product.addEventListener('click', (e) => {
         if (!e.target.closest('.wishlist') && !e.target.closest('.actions')) {
@@ -180,24 +284,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   attachProductListeners();
 
-  window.addToCart = function(e) {
-    if (e) e.stopPropagation();
-    cartCount++;
-    document.getElementById('cart-count').textContent = cartCount;
-    animateBadge('cart-count');
-    alert('Added to cart!');
-  };
-
-  function animateBadge(id) {
-    const b = document.getElementById(id);
-    if (!b) return;
-    b.classList.add('animate');
-    setTimeout(() => b.classList.remove('animate'), 300);
-  }
-
   let selectedColors = [];
   let selectedSizes = [];
 
+  // Color filters
   document.querySelectorAll('.color-filter').forEach(cb => {
     cb.addEventListener('change', function() {
       selectedColors = Array.from(document.querySelectorAll('.color-filter:checked')).map(i => i.value);
@@ -205,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Size filters
   document.querySelectorAll('.size-filter').forEach(cb => {
     cb.addEventListener('change', function() {
       selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(i => i.value);
@@ -227,166 +318,135 @@ document.addEventListener('DOMContentLoaded', () => {
       const matchesQuery = query === "" || name.includes(query);
       const matchesPrice = isNaN(maxPrice) ? true : (price <= maxPrice);
       const matchesColor = selectedColors.length === 0 || selectedColors.includes(color);
-      
-      // Check if product has at least one of the selected sizes
       const matchesSize = selectedSizes.length === 0 || selectedSizes.some(size => productSizes.includes(size));
 
-      if (matchesQuery && matchesPrice && matchesColor && matchesSize) {
-        product.style.display = '';
-      } else {
-        product.style.display = 'none';
-      }
+      product.style.display = (matchesQuery && matchesPrice && matchesColor && matchesSize) ? '' : 'none';
     });
   }
 
-  searchBtn.addEventListener('click', applyFilters);
-  searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') applyFilters(); });
-  sidebarSearch.addEventListener('keypress', (e) => { if (e.key === 'Enter') applyFilters(); });
+  // Search
+  if (searchBtn) searchBtn.addEventListener('click', applyFilters);
+  if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') applyFilters(); });
+  if (sidebarSearch) sidebarSearch.addEventListener('keypress', (e) => { if (e.key === 'Enter') applyFilters(); });
 
-  priceRange.value = priceRange.max;
-  priceBox.value = priceRange.value;
-
-  priceRange.addEventListener('input', () => {
-    priceBox.value = priceRange.value;
-    applyFilters();
-  });
-
-  priceBox.addEventListener('input', () => {
-    let v = Number(priceBox.value);
-    if (isNaN(v)) v = Number(priceRange.max);
-    if (v < Number(priceRange.min)) v = Number(priceRange.min);
-    if (v > Number(priceRange.max)) v = Number(priceRange.max);
-    priceBox.value = v;
-    priceRange.value = v;
-    applyFilters();
-  });
-
-  resetBtn.addEventListener('click', () => {
-    document.querySelectorAll('.color-filter').forEach(cb => cb.checked = false);
-    document.querySelectorAll('.size-filter').forEach(cb => cb.checked = false);
-    selectedColors = [];
-    selectedSizes = [];
+  // Price range
+  if (priceRange && priceBox) {
     priceRange.value = priceRange.max;
     priceBox.value = priceRange.value;
-    searchInput.value = '';
-    sidebarSearch.value = '';
-    sortSelect.value = 'Default';
-    productsContainer.innerHTML = '';
-    originalOrder.forEach(clone => productsContainer.appendChild(clone.cloneNode(true)));
-    attachProductListeners();
-    applyFilters();
-  });
 
-  sortSelect.addEventListener('change', () => {
-    let items = Array.from(productsContainer.querySelectorAll('.product'));
-    if (sortSelect.value === "Price: Low to High") {
-      items.sort((a,b) => parsePrice(a.querySelector('.price').textContent) - parsePrice(b.querySelector('.price').textContent));
-    } else if (sortSelect.value === "Price: High to Low") {
-      items.sort((a,b) => parsePrice(b.querySelector('.price').textContent) - parsePrice(a.querySelector('.price').textContent));
-    } else {
+    priceRange.addEventListener('input', () => {
+      priceBox.value = priceRange.value;
+      applyFilters();
+    });
+
+    priceBox.addEventListener('input', () => {
+      let v = Number(priceBox.value);
+      if (isNaN(v)) v = Number(priceRange.max);
+      if (v < Number(priceRange.min)) v = Number(priceRange.min);
+      if (v > Number(priceRange.max)) v = Number(priceRange.max);
+      priceBox.value = v;
+      priceRange.value = v;
+      applyFilters();
+    });
+  }
+
+  // Reset filters
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      document.querySelectorAll('.color-filter, .size-filter').forEach(cb => cb.checked = false);
+      selectedColors = [];
+      selectedSizes = [];
+      if (priceRange) priceRange.value = priceRange.max;
+      if (priceBox) priceBox.value = priceRange.value;
+      if (searchInput) searchInput.value = '';
+      if (sidebarSearch) sidebarSearch.value = '';
+      if (sortSelect) sortSelect.value = 'Default';
       productsContainer.innerHTML = '';
       originalOrder.forEach(clone => productsContainer.appendChild(clone.cloneNode(true)));
       attachProductListeners();
       applyFilters();
-      return;
-    }
-    productsContainer.innerHTML = '';
-    items.forEach(it => productsContainer.appendChild(it));
-    attachProductListeners();
-    applyFilters();
-  });
+    });
+  }
 
-  gridBtn.addEventListener('click', () => {
-    productsContainer.classList.remove('list-view');
-    gridBtn.classList.add('active');
-    listBtn.classList.remove('active');
-  });
-  listBtn.addEventListener('click', () => {
-    productsContainer.classList.add('list-view');
-    listBtn.classList.add('active');
-    gridBtn.classList.remove('active');
-  });
+  // Sorting
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+      let items = Array.from(productsContainer.querySelectorAll('.product'));
+      if (sortSelect.value === "Price: Low to High") {
+        items.sort((a,b) => parsePrice(a.querySelector('.price').textContent) - parsePrice(b.querySelector('.price').textContent));
+      } else if (sortSelect.value === "Price: High to Low") {
+        items.sort((a,b) => parsePrice(b.querySelector('.price').textContent) - parsePrice(a.querySelector('.price').textContent));
+      } else {
+        productsContainer.innerHTML = '';
+        originalOrder.forEach(clone => productsContainer.appendChild(clone.cloneNode(true)));
+        attachProductListeners();
+        applyFilters();
+        return;
+      }
+      productsContainer.innerHTML = '';
+      items.forEach(it => productsContainer.appendChild(it));
+      attachProductListeners();
+      applyFilters();
+    });
+  }
 
-  document.querySelector('.theme-toggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    const icon = document.querySelector('.theme-toggle i');
-    if (document.body.classList.contains('dark')) {
-      icon.className = 'fa-solid fa-sun';
-    } else {
-      icon.className = 'fa-solid fa-moon';
-    }
-  });
+  // View toggle
+  if (gridBtn) {
+    gridBtn.addEventListener('click', () => {
+      productsContainer.classList.remove('list-view');
+      gridBtn.classList.add('active');
+      if (listBtn) listBtn.classList.remove('active');
+    });
+  }
+  
+  if (listBtn) {
+    listBtn.addEventListener('click', () => {
+      productsContainer.classList.add('list-view');
+      listBtn.classList.add('active');
+      if (gridBtn) gridBtn.classList.remove('active');
+    });
+  }
 
-  document.querySelector('.toggle-sidebar').addEventListener('click', () => {
-    document.querySelector('.sidebar').classList.toggle('active');
-  });
+  // Theme toggle
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      if (document.body.classList.contains('dark')) {
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        icon.className = 'fa-solid fa-moon';
+      }
+    });
+  }
 
+  // Sidebar toggle
+  const toggleSidebar = document.querySelector('.toggle-sidebar');
+  if (toggleSidebar) {
+    toggleSidebar.addEventListener('click', () => {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) sidebar.classList.toggle('active');
+    });
+  }
+
+  // Modal close
   const modal = document.getElementById("quickViewModal");
   const closeBtn = document.querySelector(".close");
 
-  closeBtn.onclick = () => modal.style.display = "none";
+  if (closeBtn) closeBtn.onclick = () => modal.style.display = "none";
   window.onclick = (e) => {
     if (e.target === modal) modal.style.display = "none";
   };
 
-  attachProductListeners();
   applyFilters();
 });
 
-function changeImage(thumbnail) {
-  document.getElementById('mainImage').src = thumbnail.src;
-  document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-  thumbnail.classList.add('active');
-}
-
-function selectSize(element) {
-  // Don't allow selecting disabled sizes
-  if (element.classList.contains('disabled')) {
-    return;
-  }
-  
-  document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
-  element.classList.add('active');
-}
-
-function increaseQuantity() {
-  quantity++;
-  document.getElementById('quantity').textContent = quantity;
-}
-
-function decreaseQuantity() {
-  if (quantity > 1) {
-    quantity--;
-    document.getElementById('quantity').textContent = quantity;
-  }
-}
-
-function addToCartFromDetail() {
-  cartCount += quantity;
-  document.getElementById('cart-count').textContent = cartCount;
-  
-  const badge = document.getElementById('cart-count');
-  badge.classList.add('animate');
-  setTimeout(() => badge.classList.remove('animate'), 300);
-
-  alert(`Added ${quantity} item(s) to cart!`);
-}
-
-function toggleWishlistDetail() {
-  isInWishlistDetail = !isInWishlistDetail;
-  const icon = document.getElementById('wishlistIconDetail');
-  
-  if (isInWishlistDetail) {
-    icon.style.color = '#e74c3c';
-    wishlistCount++;
-  } else {
-    icon.style.color = '';
-    wishlistCount--;
-  }
-  
-  document.getElementById('wishlist-count').textContent = wishlistCount;
-  
-  const badge = document.getElementById('wishlist-count');
-  badge.classList.add('animate');
-  setTimeout(() => badge.classList.remove('animate'), 300);
-}
+// Color option click handlers
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.color-option').forEach(colorOption => {
+    colorOption.addEventListener('click', function() {
+      selectColor(this);
+    });
+  });
+});

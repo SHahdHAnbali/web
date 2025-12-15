@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard - Stilleto</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f5f7fa;
+  color: #2c3e50;
+}
+
+.admin-container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  padding: 30px 0;
+}
+
+.sidebar-logo {
+  text-align: center;
+  padding: 0 20px 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 30px;
+}
+
+.sidebar-logo h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sidebar-logo p {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+.sidebar-menu {
+  list-style: none;
+}
+
+.sidebar-menu li {
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-menu li:hover {
+  background: rgba(255,255,255,0.1);
+  padding-left: 40px;
+}
+
+.sidebar-menu li.active {
+  background: rgba(140, 40, 182, 0.3);
+  border-left: 4px solid #8C28B6;
+}
+
+.main-content {
+  padding: 30px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.top-bar {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.stat-icon.blue { background: #e3f2fd; color: #2196F3; }
+.stat-icon.green { background: #e8f5e9; color: #4CAF50; }
+.stat-icon.orange { background: #fff3e0; color: #FF9800; }
+.stat-icon.purple { background: #f3e5f5; color: #9C27B0; }
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+.section-header {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #8C28B6 0%, #c0392b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(140, 40, 182, 0.4);
+}
+
+.data-table {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f8f9fa;
+}
+
+th, td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+th {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  color: #555;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.btn-edit {
+  background: #e3f2fd;
+  color: #2196F3;
+}
+
+.btn-delete {
+  background: #ffebee;
+  color: #f44336;
+}
+
+.btn-icon:hover {
+  transform: scale(1.1);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e8ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #8C28B6;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 12px 24px;
+  background: #f8f9fa;
+  color: #2c3e50;
+  border: 2px solid #e8ecef;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #e8ecef;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-processing { background: #fff3e0; color: #FF9800; }
+.status-shipped { background: #e3f2fd; color: #2196F3; }
+.status-delivered { background: #e8f5e9; color: #4CAF50; }
+.status-in-stock { background: #e8f5e9; color: #4CAF50; }
+.status-out-of-stock { background: #ffebee; color: #f44336; }
+.status-in-transit { background: #e3f2fd; color: #2196F3; }
+.status-cancelled { background: #ffebee; color: #f44336; }
+
+@media (max-width: 992px) {
+  .admin-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-container">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <h2>STILLETO</h2>
+      <p>Admin Dashboard</p>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="active" onclick="showSection('dashboard')">
+        <i class="fa-solid fa-chart-line"></i>
+        Dashboard
+      </li>
+      <li onclick="showSection('products')">
+        <i class="fa-solid fa-box"></i>
+        Products
+      </li>
+      <li onclick="showSection('orders')">
+        <i class="fa-solid fa-shopping-cart"></i>
+        Orders
+      </li>
+      <li onclick="showSection('discounts')">
+        <i class="fa-solid fa-percent"></i>
+        Discounts
+      </li>
+      <li onclick="showSection('customers')">
+        <i class="fa-solid fa-users"></i>
+        Customers
+      </li>
+      <li onclick="showSection('settings')">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+      </li>
+      <li onclick="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="top-bar">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Welcome back, Admin</p>
+      </div>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <span id="current-date"></span>
+        <i class="fa-solid fa-bell" style="font-size: 20px; color: #8C28B6; cursor: pointer;"></i>
+      </div>
+    </div>
+
+    <div id="dashboard" class="content-section active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </div>
+          <div class="stat-value" id="total-revenue">NIS 0</div>
+          <div class="stat-label">Total Revenue</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fa-solid fa-shopping-cart"></i>
+          </div>
+          <div class="stat-value" id="total-orders">0</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="fa-solid fa-box"></i>
+          </div>
+          <div class="stat-value" id="total-products">0</div>
+          <div class="stat-label">Total Products</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="stat-value" id="total-customers">0</div>
+          <div class="stat-label">Total Customers</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Recent Orders</h2>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recent-orders-table">
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 40px;">No orders yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="products" class="content-section">
+      <div class="section-header">
+        <h2>Manage Products</h2>
+        <button class="btn-primary" onclick="openAddProductModal()">
+          <i class="fa-solid fa-plus"></i> Add New Product
+        </button>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="orders" class="content-section">
+      <div class="section-header">
+        <h2>All Orders</h2>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="discounts" class="content-section">
+      <div class="section-header">
+        <h2>Manage Discounts</h2>
+        <button class="btn-primary" onclick="openAddDiscountModal()">
+          <i class="fa-solid fa-plus"></i> Create Discount
+        </button>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Discount</th>
+              <th>Type</th>
+              <th>Valid Until</th>
+              <th>Used</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="discounts-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="customers" class="content-section">
+      <div class="section-header">
+        <h2>Customers</h2>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Orders</th>
+              <th>Total Spent</th>
+              <th>Registered</th>
+            </tr>
+          </thead>
+          <tbody id="customers-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="addProductModal" class="modal">
+  <div class="modal-content">
+    <h3>Add New Product</h3>
+    <form id="addProductForm">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" id="productName" required>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="productCategory" required>
+          <option value="heels">Heels</option>
+          <option value="bags">Bags</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Price (NIS)</label>
+        <input type="number" id="productPrice" required min="0" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>Stock Quantity</label>
+        <input type="number" id="productStock" required min="0">
+      </div>
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="text" id="productImage" placeholder="heels/product.png">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="productDescription" rows="3"></textarea>
+      </div>
+      <div class="form-buttons">
+        <button type="button" class="btn-secondary" onclick="closeModal('addProductModal')">Cancel</button>
+        <button type="submit" class="btn-primary" style="flex: 1;">Add Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="addDiscountModal" class="modal">
+  <div class="modal-content">
+    <h3>Create Discount Code</h3>
+    <form id="addDiscountForm">
+      <div class="form-group">
+        <label>Discount Code</label>
+        <input type="text" id="discountCode" placeholder="SUMMER20" required>
+      </div>
+      <div class="form-group">
+        <label>Discount Type</label>
+        <select id="discountType" required>
+          <option value="percentage">Percentage</option>
+          <option value="fixed">Fixed Amount</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Discount Value</label>
+        <input type="number" id="discountValue" required min="0">
+      </div>
+      <div class="form-group">
+        <label>Valid Until</label>
+        <input type="date" id="discountExpiry" required>
+      </div>
+      <div class="form-buttons">
+        <button type="button" class="btn-secondary" onclick="closeModal('addDiscountModal')">Cancel</button>
+        <button type="submit" class="btn-primary" style="flex: 1;">Create Discount</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// Authentication
+function checkAdminAuth() {
+  const adminLoggedIn = sessionStorage.getItem('adminLoggedIn');
+  if (!adminLoggedIn) {
+    alert('⚠️ Please login to access the admin dashboard.');
+    window.location.href = 'admin-login.html';
+    return false;
+  }
+  return true;
+}
+
+function logout() {
+  if (confirm('Logout from admin dashboard?')) {
+    sessionStorage.clear();
+    window.location.href = 'admin-login.html';
+  }
+}
+
+// Initialize data
+function initializeAdminData() {
+  const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  if (products.length === 0) {
+    localStorage.setItem('admin_products', JSON.stringify([
+      { id: 1, name: 'Green Mirror Pumps', category: 'heels', price: 120, stock: 50, image: 'heels/green_mirror.png', status: 'in-stock', description: 'Elegant heels', sales: 45 },
+      { id: 2, name: 'Pink Suede Heels', category: 'heels', price: 150, stock: 30, image: 'heels/dark_pink_suede.png', status: 'in-stock', description: 'Luxurious heels', sales: 32 },
+      { id: 3, name: 'Burgundy Mini Bag', category: 'bags', price: 120, stock: 20, image: 'bags/strath_burgundy1.png', status: 'in-stock', description: 'Stylish bag', sales: 67 }
+    ]));
+  }
+  
+  const discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  if (discounts.length === 0) {
+    localStorage.setItem('admin_discounts', JSON.stringify([
+      { id: 1, code: 'WELCOME15', type: 'percentage', value: 15, expiry: '2025-12-31', used: 5, active: true },
+      { id: 2, code: 'SUMMER20', type: 'percentage', value: 20, expiry: '2025-08-31', used: 12, active: true }
+    ]));
+  }
+}
+
+// Navigation
+function showSection(section) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(section)?.classList.add('active');
+  
+  document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
+  event.target.closest('li').classList.add('active');
+  
+  const loadFunctions = {
+    dashboard: loadStatistics,
+    products: loadProducts,
+    orders: loadOrders,
+    discounts: loadDiscounts,
+    customers: loadCustomers,
+    settings: () => alert('Settings under development')
+  };
+  
+  loadFunctions[section]?.();
+}
+
+// Statistics
+function loadStatistics() {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  const customers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+  const revenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+  
+  document.getElementById('total-revenue').textContent = `NIS ${revenue.toFixed(2)}`;
+  document.getElementById('total-orders').textContent = orders.length;
+  document.getElementById('total-products').textContent = products.length;
+  document.getElementById('total-customers').textContent = customers.length;
+  
+  const tbody = document.getElementById('recent-orders-table');
+  if (orders.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;">No orders</td></tr>';
+  } else {
+    tbody.innerHTML = orders.slice(-5).reverse().map(o => `
+      <tr>
+        <td><strong>${o.orderNumber}</strong></td>
+        <td>${o.customer?.firstName || 'Guest'} ${o.customer?.lastName || ''}</td>
+        <td>${new Date(o.date).toLocaleDateString()}</td>
+        <td><strong>NIS ${o.total.toFixed(2)}</strong></td>
+        <td><span class="status-badge status-${o.status.toLowerCase().replace(' ','-')}">${o.status}</span></td>
+      </tr>
+    `).join('');
+  }
+}
+
+// Products
+function loadProducts() {
+  const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  const tbody = document.getElementById('products-table');
+  
+  tbody.innerHTML = products.length ? products.map(p => `
+    <tr>
+      <td><img src="${p.image}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;"></td>
+      <td><strong>${p.name}</strong></td>
+      <td>${p.category}</td>
+      <td><strong>NIS ${p.price}</strong></td>
+      <td>${p.stock}</td>
+      <td><span class="status-badge status-${p.status}">${p.stock > 0 ? 'In Stock' : 'Out'}</span></td>
+      <td>
+        <div class="action-buttons">
+          <button class="btn-icon btn-edit" onclick="editProduct(${p.id})"><i class="fa-solid fa-edit"></i></button>
+          <button class="btn-icon btn-delete" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;">No products</td></tr>';
+}
+
+function openAddProductModal() {
+  document.getElementById('addProductModal').classList.add('active');
+  document.getElementById('addProductForm').reset();
+  document.querySelector('#addProductModal h3').textContent = 'Add New Product';
+}
+
+function editProduct(id) {
+  const products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  
+  document.getElementById('productName').value = p.name;
+  document.getElementById('productCategory').value = p.category;
+  document.getElementById('productPrice').value = p.price;
+  document.getElementById('productStock').value = p.stock;
+  document.getElementById('productImage').value = p.image;
+  document.getElementById('productDescription').value = p.description || '';
+  
+  document.getElementById('addProductForm').setAttribute('data-edit-id', id);
+  document.querySelector('#addProductModal h3').textContent = 'Edit Product';
+  document.getElementById('addProductModal').classList.add('active');
+}
+
+function deleteProduct(id) {
+  if (!confirm('Delete this product?')) return;
+  let products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  products = products.filter(p => p.id !== id);
+  localStorage.setItem('admin_products', JSON.stringify(products));
+  loadProducts();
+  loadStatistics();
+}
+
+document.getElementById('addProductForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const editId = this.getAttribute('data-edit-id');
+  let products = JSON.parse(localStorage.getItem('admin_products') || '[]');
+  
+  const data = {
+    name: document.getElementById('productName').value,
+    category: document.getElementById('productCategory').value,
+    price: parseFloat(document.getElementById('productPrice').value),
+    stock: parseInt(document.getElementById('productStock').value),
+    image: document.getElementById('productImage').value || 'heels/default.png',
+    description: document.getElementById('productDescription').value,
+    status: parseInt(document.getElementById('productStock').value) > 0 ? 'in-stock' : 'out-of-stock'
+  };
+  
+  if (editId) {
+    const idx = products.findIndex(p => p.id === parseInt(editId));
+    products[idx] = { ...products[idx], ...data };
+    this.removeAttribute('data-edit-id');
+  } else {
+    products.push({ id: Date.now(), ...data, sales: 0 });
+  }
+  
+  localStorage.setItem('admin_products', JSON.stringify(products));
+  closeModal('addProductModal');
+  this.reset();
+  loadProducts();
+  loadStatistics();
+});
+
+// Orders
+function loadOrders() {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const tbody = document.getElementById('orders-table');
+  
+  tbody.innerHTML = orders.length ? orders.reverse().map(o => `
+    <tr>
+      <td><strong>${o.orderNumber}</strong></td>
+      <td>${o.customer?.firstName || 'Guest'}<br><small>${o.customer?.email || ''}</small></td>
+      <td>${new Date(o.date).toLocaleDateString()}</td>
+      <td>${o.items.length}</td>
+      <td><strong>NIS ${o.total.toFixed(2)}</strong></td>
+      <td><span class="status-badge status-${o.status.toLowerCase().replace(' ','-')}">${o.status}</span></td>
+      <td>
+        <div class="action-buttons">
+          <button class="btn-icon btn-edit" onclick="viewOrder('${o.orderNumber}')"><i class="fa-solid fa-eye"></i></button>
+          <button class="btn-icon btn-delete" onclick="deleteOrder('${o.orderNumber}')"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="7" style="text-align:center;padding:40px;">No orders</td></tr>';
+}
+
+function viewOrder(num) {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const o = orders.find(x => x.orderNumber === num);
+  if (!o) return;
+  
+  alert(`ORDER: ${o.orderNumber}\nCustomer: ${o.customer?.firstName || 'Guest'}\nTotal: NIS ${o.total.toFixed(2)}\nItems: ${o.items.length}\nStatus: ${o.status}`);
+}
+
+function deleteOrder(num) {
+  if (!confirm('Delete order?')) return;
+  let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  orders = orders.filter(o => o.orderNumber !== num);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  loadOrders();
+  loadStatistics();
+}
+
+// Discounts
+function loadDiscounts() {
+  const discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  const tbody = document.getElementById('discounts-table');
+  
+  tbody.innerHTML = discounts.length ? discounts.map(d => `
+    <tr>
+      <td><strong>${d.code}</strong></td>
+      <td><strong>${d.value}${d.type === 'percentage' ? '%' : ' NIS'}</strong></td>
+      <td>${d.type}</td>
+      <td>${d.expiry}</td>
+      <td>${d.used} times</td>
+      <td>
+        <div class="action-buttons">
+          <button class="btn-icon btn-edit" onclick="toggleDiscount(${d.id})" style="background:${d.active?'#e8f5e9':'#ffebee'};color:${d.active?'#4CAF50':'#f44336'};">
+            <i class="fa-solid fa-${d.active?'toggle-on':'toggle-off'}"></i>
+          </button>
+          <button class="btn-icon btn-edit" onclick="editDiscount(${d.id})"><i class="fa-solid fa-edit"></i></button>
+          <button class="btn-icon btn-delete" onclick="deleteDiscount(${d.id})"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="6" style="text-align:center;padding:40px;">No discounts</td></tr>';
+}
+
+function openAddDiscountModal() {
+  document.getElementById('addDiscountModal').classList.add('active');
+  document.getElementById('addDiscountForm').reset();
+  document.querySelector('#addDiscountModal h3').textContent = 'Create Discount Code';
+}
+
+function editDiscount(id) {
+  const discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  const d = discounts.find(x => x.id === id);
+  if (!d) return;
+  
+  document.getElementById('discountCode').value = d.code;
+  document.getElementById('discountType').value = d.type;
+  document.getElementById('discountValue').value = d.value;
+  document.getElementById('discountExpiry').value = d.expiry;
+  
+  document.getElementById('addDiscountForm').setAttribute('data-edit-id', id);
+  document.querySelector('#addDiscountModal h3').textContent = 'Edit Discount';
+  document.getElementById('addDiscountModal').classList.add('active');
+}
+
+function toggleDiscount(id) {
+  let discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  const d = discounts.find(x => x.id === id);
+  if (d) {
+    d.active = !d.active;
+    localStorage.setItem('admin_discounts', JSON.stringify(discounts));
+    loadDiscounts();
+  }
+}
+
+function deleteDiscount(id) {
+  if (!confirm('Delete discount?')) return;
+  let discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  discounts = discounts.filter(d => d.id !== id);
+  localStorage.setItem('admin_discounts', JSON.stringify(discounts));
+  loadDiscounts();
+}
+
+document.getElementById('addDiscountForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const editId = this.getAttribute('data-edit-id');
+  let discounts = JSON.parse(localStorage.getItem('admin_discounts') || '[]');
+  
+  const data = {
+    code: document.getElementById('discountCode').value.toUpperCase(),
+    type: document.getElementById('discountType').value,
+    value: parseFloat(document.getElementById('discountValue').value),
+    expiry: document.getElementById('discountExpiry').value,
+    active: true
+  };
+  
+  if (editId) {
+    const idx = discounts.findIndex(d => d.id === parseInt(editId));
+    discounts[idx] = { ...discounts[idx], ...data };
+    this.removeAttribute('data-edit-id');
+  } else {
+    discounts.push({ id: Date.now(), ...data, used: 0 });
+  }
+  
+  localStorage.setItem('admin_discounts', JSON.stringify(discounts));
+  closeModal('addDiscountModal');
+  this.reset();
+  loadDiscounts();
+});
+
+// Customers
+function loadCustomers() {
+  const customers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const tbody = document.getElementById('customers-table');
+  
+  if (customers.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;">No customers</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = customers.map(c => {
+    const customerOrders = orders.filter(o => o.customer?.email === c.email);
+    const totalSpent = customerOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+    
+    return `
+      <tr>
+        <td><strong>${c.firstName} ${c.lastName}</strong></td>
+        <td>${c.email}</td>
+        <td>${c.phone || 'N/A'}</td>
+        <td>${customerOrders.length}</td>
+        <td><strong>NIS ${totalSpent.toFixed(2)}</strong></td>
+        <td>${new Date(c.registeredDate).toLocaleDateString()}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Utilities
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function updateDate() {
+  const el = document.getElementById('current-date');
+  if (el) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    el.textContent = new Date().toLocaleDateString('en-US', options);
+  }
+}
+
+// Close modal on outside click
+window.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal')) {
+    e.target.classList.remove('active');
+  }
+});
+
+// Initialize
+window.addEventListener('DOMContentLoaded', function() {
+  if (!checkAdminAuth()) return;
+  initializeAdminData();
+  loadStatistics();
+  updateDate();
+  setInterval(updateDate, 60000);
+  console.log('✓ Admin dashboard loaded');
+});
+
+// Make functions global
+window.showSection = showSection;
+window.logout = logout;
+window.openAddProductModal = openAddProductModal;
+window.openAddDiscountModal = openAddDiscountModal;
+window.closeModal = closeModal;
+window.editProduct = editProduct;
+window.deleteProduct = deleteProduct;
+window.viewOrder = viewOrder;
+window.deleteOrder = deleteOrder;
+window.editDiscount = editDiscount;
+window.deleteDiscount = deleteDiscount;
+window.toggleDiscount = toggleDiscount;
+</script>
+
+</body>
+</html>

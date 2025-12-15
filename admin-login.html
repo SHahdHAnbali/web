@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - Stilleto</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .login-container {
+        background: white;
+        border-radius: 20px;
+        padding: 50px 40px;
+        max-width: 450px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .login-logo {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .login-logo i {
+        font-size: 64px;
+        color: #8c28b6;
+        margin-bottom: 20px;
+      }
+
+      .login-logo h1 {
+        font-size: 32px;
+        font-weight: 800;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+
+      .login-logo p {
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 14px;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #7f8c8d;
+        font-size: 16px;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 14px 15px 14px 45px;
+        border: 2px solid #e8ecef;
+        border-radius: 10px;
+        font-size: 15px;
+        transition: all 0.3s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #8c28b6;
+        box-shadow: 0 0 0 3px rgba(140, 40, 182, 0.1);
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #7f8c8d;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 5px;
+      }
+
+      .toggle-password:hover {
+        color: #8c28b6;
+      }
+
+      .error-message {
+        background: #fee;
+        border: 2px solid #e74c3c;
+        color: #c0392b;
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .error-message i {
+        color: #e74c3c;
+      }
+
+      .error-message.show {
+        display: flex;
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #8c28b6 0%, #c0392b 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(140, 40, 182, 0.4);
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e8ecef;
+      }
+
+      .login-footer a {
+        color: #8c28b6;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .demo-credentials {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #7f8c8d;
+        text-align: center;
+      }
+
+      .demo-credentials strong {
+        color: #2c3e50;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-10px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(10px);
+        }
+      }
+
+      .shake {
+        animation: shake 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h1>STILLETO</h1>
+        <p>Admin Dashboard Login</p>
+      </div>
+
+      <div class="error-message" id="errorMessage">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="errorText"></span>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter username"
+              required
+              autocomplete="username"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              required
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePassword()"
+            >
+              <i class="fa-solid fa-eye" id="toggleIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to Dashboard
+        </button>
+      </form>
+
+      <div class="demo-credentials">
+        <strong>Demo Credentials:</strong><br />
+        Username: <strong>admin</strong><br />
+        Password: <strong>admin123</strong>
+      </div>
+
+      <div class="login-footer">
+        <a href="api/home.phps"
+          ><i class="fa-solid fa-arrow-left"></i> Back to Website</a
+        >
+      </div>
+    </div>
+
+    <script>
+      // Toggle password visibility
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.getElementById("toggleIcon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.className = "fa-solid fa-eye-slash";
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.className = "fa-solid fa-eye";
+        }
+      }
+
+      // Show error message
+      function showError(message) {
+        const errorDiv = document.getElementById("errorMessage");
+        const errorText = document.getElementById("errorText");
+        const loginContainer = document.querySelector(".login-container");
+
+        errorText.textContent = message;
+        errorDiv.classList.add("show");
+        loginContainer.classList.add("shake");
+
+        setTimeout(() => {
+          loginContainer.classList.remove("shake");
+        }, 500);
+
+        setTimeout(() => {
+          errorDiv.classList.remove("show");
+        }, 5000);
+      }
+
+      // Handle login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value;
+
+          // Admin credentials (in production, use secure backend authentication)
+          const validAdmins = {
+            admin: "admin123",
+            superadmin: "super123",
+          };
+
+          if (validAdmins[username] && validAdmins[username] === password) {
+            // Store admin session
+            sessionStorage.setItem("adminLoggedIn", "true");
+            sessionStorage.setItem("adminUsername", username);
+            sessionStorage.setItem("adminLoginTime", new Date().toISOString());
+
+            // Success message
+            const loginContainer = document.querySelector(".login-container");
+            loginContainer.style.transition = "all 0.5s";
+            loginContainer.style.transform = "scale(0.95)";
+            loginContainer.style.opacity = "0.5";
+
+            setTimeout(() => {
+              window.location.href = "admin.html";
+            }, 500);
+          } else {
+            showError("Invalid username or password. Please try again.");
+            document.getElementById("password").value = "";
+          }
+        });
+
+      // Check if already logged in
+      if (sessionStorage.getItem("adminLoggedIn")) {
+        window.location.href = "admin.html";
+      }
+
+      // Clear fields on load
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+    </script>
+  </body>
+</html>

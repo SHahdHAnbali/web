@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sale - Up to 40% Off - Stilleto</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/index.css">
+<style>
+.sale-banner {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  padding: 80px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sale-banner::before {
+  content: 'SALE';
+  position: absolute;
+  font-size: 200px;
+  font-weight: 900;
+  opacity: 0.1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sale-badge {
+  display: inline-block;
+  padding: 12px 30px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.sale-banner h1 {
+  font-size: 64px;
+  font-weight: 900;
+  margin: 0 0 15px 0;
+  letter-spacing: -2px;
+  position: relative;
+  z-index: 1;
+}
+
+.sale-banner p {
+  font-size: 20px;
+  margin: 0 0 30px 0;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+}
+
+.countdown-timer-sale {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.time-box {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 90px;
+}
+
+.time-box .time-number {
+  font-size: 36px;
+  font-weight: 900;
+  display: block;
+}
+
+.time-box .time-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #e74c3c;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #95a5a6;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.sale-price {
+  color: #e74c3c;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.savings-text {
+  color: #27ae60;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+<div class="header-decoration"></div>
+
+<div class="header">
+<div class="header-left">
+  <a href="home.html"><img src="heels/logo1.png" alt="Logo"></a>
+</div>
+<div class="header-right">
+  <a href="home.html">Home</a>
+  <a href="index.html">Heels</a>
+  <a href="bags.html">Bags</a>
+  <a href="made_to_order.html">Bespoke</a>
+  <a href="new-arrivals.html">New</a>
+  <a href="sale.html" class="active">Sale</a>
+  <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
+  <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
+  <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
+
+  <div class="icon-badge" onclick="toggleCart()">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span class="badge-pill" id="cart-count">0</span>
+  </div>
+
+  <div class="icon-badge" onclick="viewWishlist()">
+    <i class="fa-solid fa-heart"></i>
+    <span class="badge-pill" id="wishlist-count">0</span>
+  </div>
+
+  <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
+  <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+  <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
+</div>
+</div>
+
+<!-- SALE BANNER -->
+<div class="sale-banner">
+  <span class="sale-badge">🔥 Limited Time Offer</span>
+  <h1>Up to 40% OFF</h1>
+  <p>Amazing deals on luxury heels and bags</p>
+  
+  <div class="countdown-timer-sale">
+    <div class="time-box">
+      <span class="time-number" id="sale-days">00</span>
+      <span class="time-label">Days</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="sale-hours">00</span>
+      <span class="time-label">Hours</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="sale-minutes">00</span>
+      <span class="time-label">Minutes</span>
+    </div>
+    <div class="time-box">
+      <span class="time-number" id="sale-seconds">00</span>
+      <span class="time-label">Seconds</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS GRID -->
+<div class="container" style="max-width: 1400px; margin: 50px auto; padding: 0 40px 80px;">
+  <div class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
+    
+    <!-- Sale Product 1 -->
+    <div class="product">
+      <div class="discount-badge">-30%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="heels/black_leather.png" alt="Black Leather Heels">
+      <h3>Black Leather Heels</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 250.00</span>
+        <span class="sale-price">NIS 175.00</span>
+      </div>
+      <div class="savings-text">Save NIS 75.00</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'Black Leather Heels', 'NIS 175.00', 'heels/black_leather.png', '37')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+    <!-- Sale Product 2 -->
+    <div class="product">
+      <div class="discount-badge">-40%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="heels/dark_red_suede.png" alt="Red Suede Heels">
+      <h3>Red Suede Heels</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 280.00</span>
+        <span class="sale-price">NIS 168.00</span>
+      </div>
+      <div class="savings-text">Save NIS 112.00</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'Red Suede Heels', 'NIS 168.00', 'heels/dark_red_suede.png', '36')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+    <!-- Sale Product 3 -->
+    <div class="product">
+      <div class="discount-badge">-25%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="heels/dark_green_suede.png" alt="Green Suede Heels">
+      <h3>Green Suede Heels</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 200.00</span>
+        <span class="sale-price">NIS 150.00</span>
+      </div>
+      <div class="savings-text">Save NIS 50.00</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'Green Suede Heels', 'NIS 150.00', 'heels/dark_green_suede.png', '38')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+    <!-- Sale Product 4 -->
+    <div class="product">
+      <div class="discount-badge">-35%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="heels/white_bowtie2.png" alt="White Bowtie Heels">
+      <h3>White Bowtie Heels</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 230.00</span>
+        <span class="sale-price">NIS 149.50</span>
+      </div>
+      <div class="savings-text">Save NIS 80.50</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'White Bowtie Heels', 'NIS 149.50', 'heels/white_bowtie2.png', '37')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+    <!-- Sale Product 5 -->
+    <div class="product">
+      <div class="discount-badge">-20%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="heels/black_suede.png" alt="Black Suede Heels">
+      <h3>Black Suede Heels</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 190.00</span>
+        <span class="sale-price">NIS 152.00</span>
+      </div>
+      <div class="savings-text">Save NIS 38.00</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'Black Suede Heels', 'NIS 152.00', 'heels/black_suede.png', '36')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+    <!-- Sale Product 6 -->
+    <div class="product">
+      <div class="discount-badge">-30%</div>
+      <i class="fa-solid fa-heart wishlist"></i>
+      <img src="bags/strath_burgundy1.png" alt="Burgundy Bag">
+      <h3>Burgundy Mini Bag</h3>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0;">
+        <span class="original-price">NIS 170.00</span>
+        <span class="sale-price">NIS 119.00</span>
+      </div>
+      <div class="savings-text">Save NIS 51.00</div>
+      <div class="rating">★★★★★</div>
+      <div class="actions">
+        <button onclick="quickAdd(this, 'Burgundy Mini Bag', 'NIS 119.00', 'bags/strath_burgundy1.png', 'mini bag')">Add to Cart</button>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+    <button class="cart-close" onclick="toggleCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItemsContainer"></div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>SUBTOTAL</span>
+      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
+    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
+  </div>
+</div>
+
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+<footer>
+<p>&copy; 2025 Stilleto | All rights reserved.</p>
+<p>
+  <a href="#">Privacy Policy</a> | 
+  <a href="#">Terms of Service</a> | 
+  <a href="#">Help</a>
+</p>
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/global-functions.js"></script>
+
+<script>
+// Quick add to cart
+function quickAdd(button, title, price, image, size) {
+  addToCartGlobal({ title, price, image, size, quantity: 1 });
+  button.textContent = '✓ Added!';
+  button.style.background = '#27ae60';
+  setTimeout(() => {
+    button.textContent = 'Add to Cart';
+    button.style.background = '';
+  }, 1500);
+}
+
+// Countdown timer
+function updateSaleCountdown() {
+  let endDate = localStorage.getItem('saleEndDate');
+  
+  if (!endDate) {
+    const newEndDate = new Date();
+    newEndDate.setDate(newEndDate.getDate() + 3);
+    endDate = newEndDate.getTime();
+    localStorage.setItem('saleEndDate', endDate);
+  } else {
+    endDate = parseInt(endDate);
+  }
+  
+  const now = new Date().getTime();
+  const distance = endDate - now;
+  
+  if (distance < 0) {
+    const newEndDate = new Date();
+    newEndDate.setDate(newEndDate.getDate() + 3);
+    localStorage.setItem('saleEndDate', newEndDate.getTime());
+    updateSaleCountdown();
+    return;
+  }
+  
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  document.getElementById('sale-days').textContent = String(days).padStart(2, '0');
+  document.getElementById('sale-hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('sale-minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('sale-seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+setInterval(updateSaleCountdown, 1000);
+updateSaleCountdown();
+
+// Theme toggle
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const icon = document.querySelector('.theme-toggle i');
+  icon.className = document.body.classList.contains('dark') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+});
+
+// Wishlist functionality
+document.querySelectorAll('.wishlist').forEach(icon => {
+  icon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.classList.toggle('active');
+    this.style.color = this.classList.contains('active') ? '#e74c3c' : '';
+  });
+});
+</script>
+
+</body>
+</html>
