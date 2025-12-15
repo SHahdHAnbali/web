@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - Stilleto</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
+    <div class="header-decoration"></div>
+
+    <div class="header">
+      <div class="header-left">
+        <a href="api/home.php"><img src="heels/logo1.png" alt="Logo" /></a>
+      </div>
+      <div class="header-right">
+        <a href="api/home.php">Home</a>
+        <a href="index.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html">New</a>
+        <a href="sale.html">Sale</a>
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> <span>Track Order</span></a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i>
+          <span>Store Locator</span></a
+        >
+        <a href="contact.html"
+          ><i class="fa-solid fa-phone"></i> <span>Contact</span></a
+        >
+
+        <div class="icon-badge" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge-pill" id="cart-count">0</span>
+        </div>
+
+        <div class="icon-badge" onclick="viewWishlist()">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge-pill" id="wishlist-count">0</span>
+        </div>
+
+        <a href="profile.html" id="user-link" class="active"
+          ><i class="fa-solid fa-user"></i> <span>Profile</span></a
+        >
+        <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+        <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+
+    <div class="profile-container">
+      <!-- SIDEBAR -->
+      <div class="profile-sidebar">
+        <div
+          class="profile-avatar"
+          onclick="document.getElementById('avatarUpload').click()"
+        >
+          <span id="avatarInitials">JD</span>
+          <input
+            type="file"
+            id="avatarUpload"
+            accept="image/*"
+            style="display: none"
+          />
+          <div class="change-avatar-btn">
+            <i class="fa-solid fa-camera"></i>
+          </div>
+        </div>
+
+        <div class="profile-name">
+          <h2 id="profileName">John Doe</h2>
+        </div>
+        <div class="profile-email" id="profileEmail">john.doe@example.com</div>
+
+        <ul class="profile-menu">
+          <li class="active" onclick="showSection('overview')">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Overview</span>
+          </li>
+          <li onclick="showSection('personal-info')">
+            <i class="fa-solid fa-user"></i>
+            <span>Personal Information</span>
+          </li>
+          <li onclick="showSection('orders')">
+            <i class="fa-solid fa-shopping-bag"></i>
+            <span>My Orders</span>
+          </li>
+          <li onclick="showSection('addresses')">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Addresses</span>
+          </li>
+          <li onclick="showSection('wishlist')">
+            <i class="fa-solid fa-heart"></i>
+            <span>Wishlist</span>
+          </li>
+          <li onclick="showSection('security')">
+            <i class="fa-solid fa-lock"></i>
+            <span>Security</span>
+          </li>
+        </ul>
+
+        <button class="logout-btn" onclick="handleLogout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </button>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="profile-content">
+        <!-- OVERVIEW SECTION -->
+        <div class="content-section active" id="overview">
+          <div class="section-header">
+            <h2>Account Overview</h2>
+            <p>Welcome back! Here's your account summary</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="totalOrders">0</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="totalSpent">NIS 0</div>
+              <div class="stat-label">Total Spent</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="wishlistItems">0</div>
+              <div class="stat-label">Wishlist Items</div>
+            </div>
+          </div>
+
+          <h3 style="margin-bottom: 20px; color: #2c3e50">Recent Orders</h3>
+          <div id="recentOrdersContainer">
+            <div class="empty-state">
+              <i class="fa-solid fa-shopping-bag"></i>
+              <h3>No orders yet</h3>
+              <p>Start shopping to see your orders here</p>
+              <a
+                href="index.html"
+                class="btn-primary"
+                style="
+                  display: inline-block;
+                  text-decoration: none;
+                  width: auto;
+                  padding: 12px 30px;
+                "
+              >
+                Shop Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERSONAL INFO SECTION -->
+        <div class="content-section" id="personal-info">
+          <div class="section-header">
+            <h2>Personal Information</h2>
+            <p>Manage your personal details</p>
+          </div>
+
+          <div class="info-card" id="infoDisplay">
+            <div class="info-row">
+              <div>
+                <div class="info-label">First Name</div>
+                <div class="info-value" id="displayFirstName">John</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-label">Last Name</div>
+                <div class="info-value" id="displayLastName">Doe</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value" id="displayEmail">
+                  john.doe@example.com
+                </div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-label">Phone</div>
+                <div class="info-value" id="displayPhone">+970 59 123 4567</div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div>
+                <div class="info-label">Member Since</div>
+                <div class="info-value" id="displayMemberSince">
+                  January 2025
+                </div>
+              </div>
+              <button class="edit-btn" onclick="toggleEditMode()">
+                <i class="fa-solid fa-edit"></i> Edit
+              </button>
+            </div>
+          </div>
+
+          <form id="editForm" style="display: none">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="editFirstName" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="editLastName" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="editEmail" required />
+            </div>
+
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" id="editPhone" />
+            </div>
+
+            <div class="form-buttons">
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="cancelEdit()"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- ORDERS SECTION -->
+        <div class="content-section" id="orders">
+          <div class="section-header">
+            <h2>My Orders</h2>
+            <p>Track and manage your orders</p>
+          </div>
+
+          <div id="ordersContainer">
+            <div class="empty-state">
+              <i class="fa-solid fa-box-open"></i>
+              <h3>No orders found</h3>
+              <p>You haven't placed any orders yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDRESSES SECTION -->
+        <div class="content-section" id="addresses">
+          <div class="section-header">
+            <h2>Saved Addresses</h2>
+            <p>Manage your shipping addresses</p>
+          </div>
+
+          <div id="addressesContainer">
+            <div class="address-card default">
+              <div class="default-badge">Default</div>
+              <h4>Home</h4>
+              <p><strong>John Doe</strong></p>
+              <p>Main Street, Building 5</p>
+              <p>Ramallah, West Bank</p>
+              <p>Phone: +970 59 123 4567</p>
+              <div class="address-actions">
+                <button class="btn-small">
+                  <i class="fa-solid fa-edit"></i> Edit
+                </button>
+                <button class="btn-small">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn-primary"
+            onclick="addNewAddress()"
+            style="width: auto; padding: 12px 30px"
+          >
+            <i class="fa-solid fa-plus"></i> Add New Address
+          </button>
+        </div>
+
+        <!-- WISHLIST SECTION -->
+        <div class="content-section" id="wishlist">
+          <div class="section-header">
+            <h2>My Wishlist</h2>
+            <p>Your saved items</p>
+          </div>
+
+          <div id="wishlistContainer">
+            <div class="empty-state">
+              <i class="fa-solid fa-heart-crack"></i>
+              <h3>Your wishlist is empty</h3>
+              <p>Save items you love to buy them later</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECURITY SECTION -->
+        <div class="content-section" id="security">
+          <div class="section-header">
+            <h2>Security Settings</h2>
+            <p>Manage your password and security</p>
+          </div>
+
+          <form id="passwordForm" onsubmit="handlePasswordChange(event)">
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" id="currentPassword" required />
+            </div>
+
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" id="newPassword" required minlength="8" />
+              <small style="color: #7f8c8d"
+                >At least 8 characters with uppercase, lowercase, and
+                numbers</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input type="password" id="confirmPassword" required />
+            </div>
+
+            <div class="form-buttons">
+              <button type="submit" class="btn-primary">Update Password</button>
+            </div>
+          </form>
+
+          <div class="info-card" style="margin-top: 30px">
+            <h4 style="margin-bottom: 15px; color: #2c3e50">
+              Account Activity
+            </h4>
+            <div class="info-row">
+              <div class="info-label">Last Login</div>
+              <div class="info-value" id="lastLogin">Today at 10:30 AM</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Password Changed</div>
+              <div class="info-value">30 days ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART SIDEBAR -->
+    <div id="cartSidebar" class="cart-sidebar">
+      <div class="cart-header">
+        <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+        <button class="cart-close" onclick="toggleCart()">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItemsContainer"></div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span>SUBTOTAL</span>
+          <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="proceedToCheckout()">
+          CHECKOUT
+        </button>
+        <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
+      </div>
+    </div>
+
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> |
+        <a href="#">Help</a>
+      </p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/global-functions.js"></script>
+    <script src="js/profile.js"></script>
+  </body>
+</html>

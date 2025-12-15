@@ -1,178 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE-edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact</title>
-
-  <!-- remix icon -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
-
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <!-- custom css -->
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact Us - Stilleto</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+  <div class="header-decoration"></div>
 
-  <header class="header">
-    <a href="home.html" class="logo"><i class="ri-store-2-line"></i> handcrafts</a>
-
-    <form action="#" class="search-form">
-      <input type="search" placeholder="search here ..." id="search-box">
-      <label for="search-box" class="ri-search-line"></label>
-    </form>
-
-    <div class="icons">
-      <div id="menu-btn" class="ri-menu-line"></div>
+  <div class="header">
+  <div class="header-left">
+    <a href="home.html"><img src="heels/logo1.png" alt="Logo"></a>
+  </div>
+  <div class="header-right">
+    <!-- Main Navigation -->
+    <a href="home.html">Home</a>
+    <a href="index.html">Heels</a>
+    <a href="bags.html">Bags</a>
+    <a href="made_to_order.html">Bespoke</a>
+    <a href="new-arrivals.html">New</a>
+    <a href="sale.html">Sale</a>
+    
+    <!-- Secondary Navigation -->
+    <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
+    <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
+    <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
+  
+    <!-- Cart Badge -->
+    <div class="icon-badge" onclick="toggleCart()">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="badge-pill" id="cart-count">0</span>
+    </div>
+  
+    <!-- Wishlist Badge -->
+    <div class="icon-badge" onclick="viewWishlist()">
+      <i class="fa-solid fa-heart"></i>
+      <span class="badge-pill" id="wishlist-count">0</span>
+    </div>
+  
+    <!-- User Account -->
+    <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  </div>
+<!-- CONTACT US PAGE -->
+<div class="info-container">
+  <div class="info-header">
+    <i class="fa-solid fa-phone"></i>
+    <h2>Contact Us</h2>
+    <p>We'd love to hear from you</p>
+  </div>
+  
+  <div class="contact-content">
+    <div class="contact-form-section">
+      <h3>Send us a Message</h3>
+      <form class="contact-form" onsubmit="handleContact(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-name">Full Name</label>
+            <input type="text" id="contact-name" placeholder="John Doe" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" placeholder="your.email@example.com" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="contact-subject">Subject</label>
+          <input type="text" id="contact-subject" placeholder="How can we help?" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" rows="5" placeholder="Write your message here..." required></textarea>
+        </div>
+        
+        <button type="submit" class="info-btn">Send Message</button>
+      </form>
+    </div>
+    
+    <div class="contact-info-section">
+      <h3>Get in Touch</h3>
       
-      <div id="cart-btn" class="ri-shopping-cart-line"></div>
-      <div id="login-btn" class="ri-user-line"></div>
-    </div>
-  </header>
-
-  <!-- closer -->
-  <div id="closer" class="ri-close-line"></div>
-
-  <!-- navbar -->
-  <nav class="navbar">
-    <a href="home.html">home</a>
-    <a href="shop.html">shop</a>
-    <a href="about.html">about</a>
-    <a href="blog.html">blog</a>
-    <a href="contact.html">contact</a>
-  </nav>
-
-  <div class="shopping-cart">
-    <div class="box">
-      <i class="ri-close-line-close-icon"></i>
-      <img src="image/ceramic.webp" alt="">
-      <div class="content">
-        <h3>modern pieces</h3>
-        <span class="quantity">1</span>
-        <span class="multiply">x</span>
-        <span class="price"> $25 </span>
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div>
+          <h4>Address</h4>
+          <p>Main Street, Ramallah<br>West Bank, Palestine</p>
+        </div>
       </div>
-
-      <button class="close-icon" aria-label="Remove item">&times;</button>
-    </div>
-
-
-    <div class="box">
-      <i class="ri-close-line-close-icon"></i>
-      <img src="image/tatreez.jpg" alt="">
-      <div class="content">
-        <h3>modern pieces</h3>
-        <span class="quantity">1</span>
-        <span class="multiply">x</span>
-        <span class="price"> $10 </span>
+      
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div>
+          <h4>Phone</h4>
+          <p>+970 2 123 4567<br>+970 59 123 4567</p>
+        </div>
       </div>
-
-      <button class="close-icon" aria-label="Remove item">&times;</button>
-    </div>
-
-
-
-    <div class="box">
-      <i class="ri-close-line-close-icon"></i>
-      <img src="image/home decoration.webp" alt="">
-      <div class="content">
-        <h3>modern pieces</h3>
-        <span class="quantity">1</span>
-        <span class="multiply">x</span>
-        <span class="price"> $20 </span>
+      
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div>
+          <h4>Email</h4>
+          <p>info@stilletobags.com<br>support@stilletobags.com</p>
+        </div>
       </div>
-      <button class="close-icon" aria-label="Remove item">&times;</button>
-    
-    </div>
-
-
-
-    <div class="box">
-      <i class="ri-close-line-close-icon"></i>
-      <img src="image/vases.jpeg" alt="">
-      <div class="content">
-        <h3>modern pieces</h3>
-        <span class="quantity">1</span>
-        <span class="multiply">x</span>
-        <span class="price"> $15 </span>
+      
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <div>
+          <h4>Business Hours</h4>
+          <p>Sunday - Thursday: 9:00 AM - 8:00 PM<br>Friday - Saturday: Closed</p>
+        </div>
       </div>
-      <button class="close-icon" aria-label="Remove item">&times;</button>
-    
+      
+      <div class="contact-social">
+        <h4>Follow Us</h4>
+        <div class="social-links">
+          <a href="#" onclick="openSocialMedia('facebook'); return false;"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" onclick="openSocialMedia('instagram'); return false;"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" onclick="openSocialMedia('twitter'); return false;"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" onclick="openSocialMedia('whatsapp'); return false;"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        </div>
+      </div>
     </div>
-
-
-
-<h3 class="total"> total : <span> $70.00</span></h3>
-<a href="#" class="btn">checkout cart</a>
-
-
-
   </div>
-
-
-<div class="login-form"> 
-<form action="#">
-  <h3>login form</h3>
-  <input type="email" placeholder="enter your email" class="box">
-  <input type="password" placeholder="enter your password" class="box">
-  <div class="remember"> 
-    <input type="checkbox" name=" " id="remember-me">
-    <label for="remember-me">remember me</label>
-  </div>
-  <input type="submit" value="login now" class="btn">
-  <p>forget password? <a href="#">click here</a></p>
-  <p>don't have an account? <a href="#">create now</a></p>
-</form>
 </div>
 
-<section class="footer">
-    <div class="box-container">
-      <div class="box">
-        <h3>Quick Links</h3>
-        <a href="home.html"> <i class="ri-arrow-right-line"></i> home </a>
-        <a href="shop.html"> <i class="ri-arrow-right-line"></i> shop </a>
-        <a href="about.html"> <i class="ri-arrow-right-line"></i> about </a>
-        <a href="blog.html"> <i class="ri-arrow-right-line"></i> blog </a>
-        <a href="contact.html"> <i class="ri-arrow-right-line"></i> contact </a>
-      </div>
+<!-- SHOPPING CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+    <button class="cart-close" onclick="toggleCart()">&times;</button>
+  </div>
   
-      <div class="box">
-        <h3>Extra Links</h3>
-        <a href="#"> <i class="ri-arrow-right-line"></i> my order </a>
-        <a href="#"> <i class="ri-arrow-right-line"></i> my wishlist </a>
-        <a href="#"> <i class="ri-arrow-right-line"></i> my account </a>
-        <a href="#"> <i class="ri-arrow-right-line"></i> my favorite </a>
-        <a href="#"> <i class="ri-arrow-right-line"></i> terms of user </a>
-        
-      </div>
-  
-  
-      <div class="box">
-        <h3>Extra Links</h3>
-        <a href="#"> <i class="ri-facebook-fill"></i> facebook </a>
-        <a href="#"> <i class="ri-twitter-fill"></i> twitter </a>
-        <a href="#"> <i class="ri-instagram-fill"></i> instagram </a>
-        <a href="#"> <i class="ri-linkedin-box-fill"></i> linkedin </a>
-        <a href="#"> <i class="ri-pinterest-fill"></i> pinterest </a>
-        
-      </div>
-  
-      <div class="box">
-        <h3>newsletter</h3>
-        <p>subscibe for latest updates</p>
-        <form action="#">
-          <input type="email" name=" " placeholder="enter your email">
-          <input type="submit" value="subscibe" class="btn">
-        </form>
-      </div>
-  
+  <div class="cart-items" id="cartItemsContainer">
+    <div class="cart-empty">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <p>Your bag is empty</p>
     </div>
-  </section>
+  </div>
+  
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>SUBTOTAL</span>
+      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
+    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
+  </div>
+</div>
 
-  <script src="js/script.js"></script>
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+<footer>
+<p>&copy; 2025 Stilleto | All rights reserved.</p>
+<p>
+  <a href="#">Privacy Policy</a> | 
+  <a href="#">Terms of Service</a> | 
+  <a href="#">Help</a>
+</p>
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/global-functions.js"></script>
+
+<script>
+
+
+// Cart toggle
+window.toggleCart = function() {
+  const cartSidebar = document.getElementById('cartSidebar');
+  const cartOverlay = document.getElementById('cartOverlay');
+  
+  cartSidebar.classList.toggle('active');
+  cartOverlay.classList.toggle('active');
+  
+  if (cartSidebar.classList.contains('active')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+// Contact form handler
+window.handleContact = function(event) {
+  event.preventDefault();
+  const name = document.getElementById('contact-name').value;
+  const email = document.getElementById('contact-email').value;
+  const subject = document.getElementById('contact-subject').value;
+  const message = document.getElementById('contact-message').value;
+  
+  alert(`Message sent successfully!\n\nFrom: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nWe'll get back to you within 24 hours.`);
+  
+  // Reset form
+  event.target.reset();
+}
+
+// Theme toggle
+document.querySelector('.theme-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const icon = document.querySelector('.theme-toggle i');
+  if (document.body.classList.contains('dark')) {
+    icon.className = 'fa-solid fa-sun';
+  } else {
+    icon.className = 'fa-solid fa-moon';
+  }
+});
+</script>
 
 </body>
 </html>

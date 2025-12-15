@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stilleto</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <div class="header-decoration"></div>
+
+  <div class="header">
+  <div class="header-left">
+    <a href="api/home.php"><img src="heels/logo1.png" alt="Logo"></a>
+  </div>
+  <div class="header-right">
+    <!-- Main Navigation -->
+    <a href="home.html">Home</a>
+    <a href="index.html">Heels</a>
+    <a href="bags.html">Bags</a>
+    <a href="made_to_order.html">Bespoke</a>
+    <a href="new-arrivals.html">New</a>
+    <a href="sale.html">Sale</a>
+    
+    <!-- Secondary Navigation -->
+    <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
+    <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
+    <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
+  
+    <!-- Cart Badge -->
+    <div class="icon-badge" onclick="toggleCart()">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="badge-pill" id="cart-count">0</span>
+    </div>
+  
+    <!-- Wishlist Badge -->
+    <div class="icon-badge" onclick="viewWishlist()">
+      <i class="fa-solid fa-heart"></i>
+      <span class="badge-pill" id="wishlist-count">0</span>
+    </div>
+  
+    <!-- User Account -->
+    <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  </div>
+
+<!-- SHOP PAGE -->
+<div id="shopPage" class="page-content active">
+<div class="search-bar">
+  <input type="text" placeholder="Search products..." id="search-input" />
+  <button id="search-btn"><i class="fa-solid fa-search"></i> Search</button>
+</div>
+
+<div class="container">
+  <div class="sidebar">
+    <h4>Search</h4>
+    <input type="text" placeholder="Search..." id="sidebar-search">
+    <h4>Maximum Price</h4>
+    <input type="number" id="price-box" placeholder="NIS 0" min="0" max="500" value="500">
+    <br>
+    <input type="range" id="price-range" min="0" max="500" value="500" class="price-range">
+
+    <h4>Category</h4>
+    <div class="size">
+      <label><input type="checkbox" class="size-filter" value="mini bag"> mini bag </label>
+      <label><input type="checkbox" class="size-filter" value="cross body"> cross body </label>
+      <label><input type="checkbox" class="size-filter" value="shoulder bag"> shoulder bag </label>
+      <label><input type="checkbox" class="size-filter" value="clutch"> clutch </label>
+      <label><input type="checkbox" class="size-filter" value="wallets"> wallets </label>
+    </div>
+
+    <h4>Color</h4>
+    <div class="color">
+      <label><input type="checkbox" class="color-filter" value="red"> Red (7)</label>
+      <label><input type="checkbox" class="color-filter" value="orange"> Orange (3)</label>
+      <label><input type="checkbox" class="color-filter" value="yellow"> Yellow (4)</label>
+      <label><input type="checkbox" class="color-filter" value="green"> Green (11)</label>
+      <label><input type="checkbox" class="color-filter" value="blue"> Blue (13)</label>
+      <label><input type="checkbox" class="color-filter" value="purple"> Purple (10)</label>
+      <label><input type="checkbox" class="color-filter" value="pink"> Pink (8)</label>
+      <label><input type="checkbox" class="color-filter" value="black"> Black (11)</label>
+    </div>
+
+    <button class="reset-btn" id="reset-btn">RESET ALL</button>
+  </div>
+
+  <div>
+    <div class="products-header">
+      <div>
+        <label>Sort by:</label>
+        <select id="sort-by">
+          <option>Default</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+      <div>
+        <button id="grid-btn" class="active"><i class="fa-solid fa-th"></i></button>
+        <button id="list-btn"><i class="fa-solid fa-list"></i></button>
+      </div>
+    </div>
+
+    <div class="products">
+      <div class="product" data-color="red" data-id="1" data-sizes="mini bag">
+        <i class="fa-solid fa-heart wishlist"></i>
+        <img src="bags/strath_burgundy1.png" alt="">
+        <h3>Burgundy Mini Bag</h3>
+        <div class="price">NIS 120.00</div>
+        <div class="rating">★★★★★</div>
+        <div class="actions">
+          <button onclick="addToCart(event)">Add to Cart</button>
+          <button class="quick-view-btn" 
+          data-image="bags/strath_burgundy1.png"
+          data-title="Burgundy Mini Bag"
+          data-description="A structured burgundy leather handbag with a top handle, gold bar closure, and elegant minimalist design."
+          data-sizes="mini bag"
+          data-status="In Stock"
+          data-features="Free shipping, 100% Leather">Quick View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+<div id="productPage" class="page-content">
+<div class="breadcrumb">
+  <a onclick="showShopPage()">Home</a>
+  <span>/</span>
+  <a onclick="showShopPage()">Shop</a>
+  <span>/</span>
+  <span id="breadcrumbProduct">Product</span>
+</div>
+
+<div class="product-container">
+  <div class="product-gallery">
+    <img src="bags/strath_burgundy1.png" alt="Bag" class="main-image" id="mainImage">
+    <div class="thumbnail-container">
+      <img src="bags/strath_burgundy1.png" class="thumbnail active" onclick="changeImage(this)">
+      <img src="bags/strath_burgundy2.png" class="thumbnail" onclick="changeImage(this)">
+      <img src="bags/strath_burgundy4.png" class="thumbnail" onclick="changeImage(this)">
+      <img src="bags/strath_burgundy3.png" class="thumbnail" onclick="changeImage(this)">
+    </div>
+  </div>
+
+  <div class="product-details">
+    <h1 class="product-title" id="detailTitle">Burgundy Mini Bag</h1>
+    
+    <div class="product-rating">
+      <div class="stars">★★★★★</div>
+      <span class="review-count">(127 Reviews)</span>
+    </div>
+
+    <div class="product-price" id="detailPrice">NIS 120.00</div>
+
+    <div class="product-description" id="detailDescription">
+      <p>The cult favourite, reimagined. The Mosaic Nano Bag takes Strathberry's beloved best-seller and transforms it into a smaller, more compact size, perfect for modern versatility.</p>
+      <p>Inspired by Scottish artists working with mosaics, this new addition to the Mosaic collection retains the clean, precise lines and soft, malleable leather that define its larger counterpart—making it a timeless piece with contemporary charm.</p>
+    </div>
+
+    <div class="product-meta">
+      <div class="product-meta-item">
+        <strong>SKU:</strong>
+        <span id="detailSKU">BURGUNDY-BAG-001</span>
+      </div>
+      <div class="product-meta-item">
+        <strong>Availability:</strong>
+        <span style="color: #27ae60; font-weight: 600;" id="detailAvailability">In Stock</span>
+      </div>
+      <div class="product-meta-item">
+        <strong>Category:</strong>
+        <span>Mini Bag</span>
+      </div>
+      <div class="product-meta-item">
+        <strong>Material:</strong>
+        <span>100% Premium Leather</span>
+      </div>
+      <div class="product-meta-item">
+        <strong>Origin:</strong>
+        <span>Scotland - Handmade</span>
+      </div>
+    </div>
+
+    <!-- COLOR SELECTOR -->
+    <div class="color-selector">
+      <h4>Color: <span id="selectedColorName">Burgundy</span></h4>
+      <div class="color-options" id="colorOptions">
+        <div class="color-option active" data-color="burgundy" title="Burgundy"></div>
+        <div class="color-option" data-color="black" title="Black"></div>
+        
+        <div class="color-option" data-color="blue" title="Blue"></div>
+        <div class="color-option" data-color="green" title="Green"></div>
+       
+        <div class="color-option" data-color="white" title="White"></div>
+        <div class="color-option" data-color="brown" title="Brown"></div>
+        <div class="color-option disabled" data-color="pink" title="Pink - Out of Stock"></div>
+        <div class="color-option disabled" data-color="gray" title="Gray - Out of Stock"></div>
+      </div>
+    </div>
+
+    <!-- SIZE SELECTOR -->
+    <div class="size-selector">
+      <h4>Category</h4>
+      <div class="size-options" id="sizeOptions">
+        <div class="size-option active">mini bag</div>
+        <div class="size-option disabled">cross body</div>
+        <div class="size-option disabled">shoulder bag</div>
+        <div class="size-option disabled">clutch</div>
+        <div class="size-option disabled">wallets</div>
+      </div>
+    </div>
+
+    <div class="quantity-selector">
+      <h4>Quantity</h4>
+      <div class="quantity-controls">
+        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+        <div class="quantity-display" id="quantity">1</div>
+        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-primary" onclick="addToCartFromDetail()">
+        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+      </button>
+      <button class="btn-secondary" onclick="toggleWishlistDetail()">
+        <i class="fa-solid fa-heart" id="wishlistIconDetail"></i>
+      </button>
+    </div>
+
+    <div class="features-list">
+      <h4>Product Features</h4>
+      <div class="feature-item">
+        <i class="fa-solid fa-truck"></i>
+        <span>Free Shipping on orders over NIS 300</span>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-rotate-left"></i>
+        <span>30-Day Return Policy</span>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Authentic Scottish Craftsmanship</span>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-hand-sparkles"></i>
+        <span>Hand-Made by Skilled Artisans</span>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-certificate"></i>
+        <span>Quality Guaranteed</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="page-content">
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">Sign in to your account</p>
+      
+      <form class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" placeholder="your.email@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" placeholder="Enter your password" required>
+        </div>
+        
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+        
+        <button type="submit" class="auth-btn">Sign In</button>
+        
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+        
+        <button type="button" class="social-btn google-btn">
+          <i class="fa-brands fa-google"></i>
+          Continue with Google
+        </button>
+        
+        <button type="button" class="social-btn facebook-btn">
+          <i class="fa-brands fa-facebook-f"></i>
+          Continue with Facebook
+        </button>
+        
+        <p class="auth-switch">
+          Don't have an account? <a href="#" onclick="showRegisterForm()">Sign Up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- TRACK ORDER PAGE -->
+<div id="trackOrderPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-truck"></i>
+      <h2>Track Your Order</h2>
+      <p>Enter your order number to track your shipment</p>
+    </div>
+    
+    <div class="track-form-container">
+      <form class="track-form" onsubmit="handleTrackOrder(event)">
+        <div class="form-group">
+          <label for="order-number">Order Number</label>
+          <input type="text" id="order-number" placeholder="e.g., ORD-12345" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="order-email">Email Address</label>
+          <input type="email" id="order-email" placeholder="your.email@example.com" required>
+        </div>
+        
+        <button type="submit" class="info-btn">Track Order</button>
+      </form>
+      
+      <div class="track-info">
+        <h3>How to find your order number?</h3>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Check your order confirmation email</li>
+          <li><i class="fa-solid fa-check"></i> Look in your account order history</li>
+          <li><i class="fa-solid fa-check"></i> Contact customer support if you can't find it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORE LOCATOR PAGE -->
+<div id="storeLocatorPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-location-dot"></i>
+      <h2>Store Locator</h2>
+      <p>Find our stores near you</p>
+    </div>
+    
+    <div class="store-search">
+      <input type="text" placeholder="Enter city or postal code" id="store-search-input">
+      <button class="info-btn" onclick="searchStores()">
+        <i class="fa-solid fa-search"></i> Search
+      </button>
+    </div>
+    
+    <div class="stores-grid">
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Ramallah Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Main Street, Ramallah, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:00 AM - 8:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 123 4567
+        </p>
+        <button class="store-btn" onclick="getDirections('Ramallah')">Get Directions</button>
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Nablus Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Old City, Nablus, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 10:00 AM - 7:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 9 234 5678
+        </p>
+        <button class="store-btn" onclick="getDirections('Nablus')">Get Directions</button>
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Bethlehem Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Manger Square, Bethlehem, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:00 AM - 9:00 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 345 6789
+        </p>
+        <button class="store-btn" onclick="getDirections('Bethlehem')">Get Directions</button>
+
+      </div>
+      
+      <div class="store-card">
+        <div class="store-icon">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h3>Hebron Store</h3>
+        <p class="store-address">
+          <i class="fa-solid fa-location-dot"></i>
+          Al-Khalil, Hebron, West Bank
+        </p>
+        <p class="store-hours">
+          <i class="fa-solid fa-clock"></i>
+          Sun - Thu: 9:30 AM - 7:30 PM
+        </p>
+        <p class="store-phone">
+          <i class="fa-solid fa-phone"></i>
+          +970 2 456 7890
+        </p>
+        <button class="store-btn" onclick="getDirections('Hebron')">Get Directions</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT US PAGE -->
+<div id="contactPage" class="page-content">
+  <div class="info-container">
+    <div class="info-header">
+      <i class="fa-solid fa-phone"></i>
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you</p>
+    </div>
+    
+    <div class="contact-content">
+      <div class="contact-form-section">
+        <h3>Send us a Message</h3>
+        <form class="contact-form" onsubmit="handleContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" placeholder="your.email@example.com" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" placeholder="How can we help?" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          
+          <button type="submit" class="info-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <div class="contact-info-section">
+        <h3>Get in Touch</h3>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div>
+            <h4>Address</h4>
+            <p>Main Street, Ramallah<br>West Bank, Palestine</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <h4>Phone</h4>
+            <p>+970 2 123 4567<br>+970 59 123 4567</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <h4>Email</h4>
+            <p>info@anamlpalestine.com<br>support@anamlpalestine.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-info-card">
+          <div class="contact-info-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <h4>Business Hours</h4>
+            <p>Sunday - Thursday: 9:00 AM - 8:00 PM<br>Friday - Saturday: Closed</p>
+          </div>
+        </div>
+        
+        <div class="contact-social">
+          <h4>Follow Us</h4>
+         
+            <div class="social-links">
+              <a href="#" onclick="openSocialMedia('facebook'); return false;"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" onclick="openSocialMedia('instagram'); return false;"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" onclick="openSocialMedia('twitter'); return false;"><i class="fa-brands fa-twitter"></i></a>
+              <a href="#" onclick="openSocialMedia('whatsapp'); return false;"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="quickViewModal" class="modal">
+<div class="modal-content">
+  <span class="close">&times;</span>
+
+  <div class="modal-left">
+    <img src="bags/strath_burgundy1.png" alt="Product Image" id="modalImage">
+  </div>
+
+  <div class="modal-right">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDescription"></p>
+    <p><strong>Category:</strong> <span id="modalSizes"></span></p>
+    <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+    <p><strong>Features:</strong> <span id="modalFeatures"></span></p>
+  </div>
+</div>
+</div>
+
+<!-- SHOPPING CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+    <button class="cart-close" onclick="toggleCart()">&times;</button>
+  </div>
+  
+  <div class="cart-items" id="cartItemsContainer">
+    <!-- Cart items will be dynamically added here -->
+  </div>
+  
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>SUBTOTAL</span>
+      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
+    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
+  </div>
+</div>
+
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+<footer>
+<p>&copy; 2025 Stilleto | All rights reserved.</p>
+<p>
+  <a href="#">Privacy Policy</a> | 
+  <a href="#">Terms of Service</a> | 
+  <a href="#">Help</a>
+</p>
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/global-functions.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

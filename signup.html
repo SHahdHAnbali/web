@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Stilleto</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <div class="header-decoration"></div>
+
+    <div class="header">
+      <div class="header-left">
+        <a href="home.html"><img src="heels/logo1.png" alt="Logo" /></a>
+      </div>
+      <div class="header-right">
+        <a href="home.html">Home</a>
+        <a href="index.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html">New</a>
+        <a href="sale.html">Sale</a>
+
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> Track Order</a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i> Store Locator</a
+        >
+        <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact</a>
+
+        <a href="login.html"><i class="fa-solid fa-user"></i> Login</a>
+      </div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Create Account</h2>
+        <p class="auth-subtitle">Join us today and start shopping</p>
+
+        <form class="auth-form" onsubmit="handleSignup(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="signup-firstname" required />
+              <span class="error-message" id="firstname-error"></span>
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="signup-lastname" required />
+              <span class="error-message" id="lastname-error"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="signup-email" required />
+            <span class="error-message" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="signup-phone" />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="signup-password" required />
+            <span class="error-message" id="password-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="signup-confirm-password" required />
+            <span class="error-message" id="confirm-password-error"></span>
+          </div>
+
+          <div class="form-group-checkbox">
+            <label>
+              <input type="checkbox" id="terms-checkbox" required />
+              I agree to the Terms & Privacy Policy
+            </label>
+            <span class="error-message" id="terms-error"></span>
+          </div>
+
+          <div class="form-group-checkbox">
+            <label>
+              <input type="checkbox" id="newsletter-checkbox" />
+              Subscribe to newsletter
+            </label>
+          </div>
+
+          <button type="submit" class="auth-btn">Create Account</button>
+
+          <p class="auth-switch">
+            Already have an account? <a href="login.html">Sign In</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+    </footer>
+
+    <script>
+      function showError(field, message) {
+        document.getElementById(field + "-error").textContent = message;
+      }
+
+      function validateForm() {
+        let valid = true;
+        document
+          .querySelectorAll(".error-message")
+          .forEach((e) => (e.textContent = ""));
+
+        const first = document.getElementById("signup-firstname").value.trim();
+        const last = document.getElementById("signup-lastname").value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const pass = document.getElementById("signup-password").value;
+        const confirm = document.getElementById(
+          "signup-confirm-password"
+        ).value;
+
+        if (first.length < 2) {
+          showError("firstname", "First name too short");
+          valid = false;
+        }
+        if (last.length < 2) {
+          showError("lastname", "Last name too short");
+          valid = false;
+        }
+        if (!email.includes("@")) {
+          showError("email", "Invalid email");
+          valid = false;
+        }
+        if (pass.length < 8) {
+          showError("password", "Weak password");
+          valid = false;
+        }
+        if (pass !== confirm) {
+          showError("confirm-password", "Passwords do not match");
+          valid = false;
+        }
+        if (!document.getElementById("terms-checkbox").checked) {
+          showError("terms", "You must accept terms");
+          valid = false;
+        }
+        return valid;
+      }
+
+      async function handleSignup(event) {
+        event.preventDefault();
+        if (!validateForm()) return;
+
+        const data = {
+          firstName: document.getElementById("signup-firstname").value.trim(),
+          lastName: document.getElementById("signup-lastname").value.trim(),
+          email: document.getElementById("signup-email").value.trim(),
+          phone: document.getElementById("signup-phone").value.trim(),
+          password: document.getElementById("signup-password").value,
+          newsletter: document.getElementById("newsletter-checkbox").checked,
+        };
+
+        try {
+          const res = await fetch("api/signup.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await res.json();
+
+          if (!res.ok) {
+            alert(result.message || "Registration failed");
+            return;
+          }
+
+          alert("Account created successfully");
+          window.location.href = "login.html";
+        } catch (err) {
+          alert("Server error");
+          alert(err.message);
+        }
+      }
+    </script>
+  </body>
+</html>
