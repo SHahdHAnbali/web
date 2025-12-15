@@ -10,11 +10,50 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/index.css" />
+
+    <style>
+      /* ===== Password Strength ===== */
+      .password-strength {
+        height: 8px;
+        width: 100%;
+        background: #eee;
+        border-radius: 5px;
+        margin-top: 6px;
+        overflow: hidden;
+      }
+
+      .password-strength-bar {
+        height: 100%;
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      .strength-weak {
+        background: #e74c3c;
+        width: 33%;
+      }
+
+      .strength-medium {
+        background: #f1c40f;
+        width: 66%;
+      }
+
+      .strength-strong {
+        background: #2ecc71;
+        width: 100%;
+      }
+
+      .strength-text {
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    </style>
   </head>
 
   <body>
     <div class="header-decoration"></div>
 
+    <!-- HEADER -->
     <div class="header">
       <div class="header-left">
         <a href="home.html"><img src="heels/logo1.png" alt="Logo" /></a>
@@ -26,15 +65,6 @@
         <a href="made_to_order.html">Bespoke</a>
         <a href="new-arrivals.html">New</a>
         <a href="sale.html">Sale</a>
-
-        <a href="track_order.html"
-          ><i class="fa-solid fa-truck"></i> Track Order</a
-        >
-        <a href="store_locator.html"
-          ><i class="fa-solid fa-location-dot"></i> Store Locator</a
-        >
-        <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact</a>
-
         <a href="login.html"><i class="fa-solid fa-user"></i> Login</a>
       </div>
     </div>
@@ -45,7 +75,7 @@
         <h2>Create Account</h2>
         <p class="auth-subtitle">Join us today and start shopping</p>
 
-        <form class="auth-form" onsubmit="handleSignup(event)">
+        <form class="auth-form" id="signupForm">
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
@@ -68,12 +98,25 @@
 
           <div class="form-group">
             <label>Phone</label>
-            <input type="tel" id="signup-phone" />
+            <input
+              type="tel"
+              id="signup-phone"
+              placeholder="05XXXXXXXX"
+              required
+            />
+            <span class="error-message" id="phone-error"></span>
           </div>
 
           <div class="form-group">
             <label>Password</label>
             <input type="password" id="signup-password" required />
+
+            <!-- strength bar -->
+            <div class="password-strength">
+              <div id="strengthBar" class="password-strength-bar"></div>
+            </div>
+            <div id="strengthText" class="strength-text"></div>
+
             <span class="error-message" id="password-error"></span>
           </div>
 
@@ -85,23 +128,17 @@
 
           <div class="form-group-checkbox">
             <label>
-              <input type="checkbox" id="terms-checkbox" required />
+              <input type="checkbox" id="terms-checkbox" />
               I agree to the Terms & Privacy Policy
             </label>
             <span class="error-message" id="terms-error"></span>
           </div>
 
-          <div class="form-group-checkbox">
-            <label>
-              <input type="checkbox" id="newsletter-checkbox" />
-              Subscribe to newsletter
-            </label>
-          </div>
-
           <button type="submit" class="auth-btn">Create Account</button>
 
           <p class="auth-switch">
-            Already have an account? <a href="login.html">Sign In</a>
+            Already have an account?
+            <a href="login.html">Sign In</a>
           </p>
         </form>
       </div>
@@ -111,66 +148,92 @@
       <p>&copy; 2025 Stilleto | All rights reserved.</p>
     </footer>
 
+    <!-- ================= SCRIPT ================= -->
     <script>
-      function showError(field, message) {
-        document.getElementById(field + "-error").textContent = message;
+      const passwordInput = document.getElementById("signup-password");
+      const strengthBar = document.getElementById("strengthBar");
+      const strengthText = document.getElementById("strengthText");
+
+      let passwordLevel = 0; // 1 weak | 2 medium | 3 strong
+
+      passwordInput.addEventListener("input", () => {
+        const value = passwordInput.value;
+        strengthBar.className = "password-strength-bar";
+        strengthText.textContent = "";
+
+        if (value.length < 6) {
+          passwordLevel = 1;
+          strengthBar.classList.add("strength-weak");
+          strengthText.textContent = "Weak password";
+        } else if (
+          value.length >= 8 &&
+          /[A-Z]/.test(value) &&
+          /[0-9]/.test(value)
+        ) {
+          passwordLevel = 3;
+          strengthBar.classList.add("strength-strong");
+          strengthText.textContent = "Strong password";
+        } else {
+          passwordLevel = 2;
+          strengthBar.classList.add("strength-medium");
+          strengthText.textContent = "Medium password";
+        }
+      });
+
+      function showError(id, msg) {
+        document.getElementById(id).textContent = msg;
       }
 
-      function validateForm() {
-        let valid = true;
+      function clearErrors() {
         document
           .querySelectorAll(".error-message")
           .forEach((e) => (e.textContent = ""));
-
-        const first = document.getElementById("signup-firstname").value.trim();
-        const last = document.getElementById("signup-lastname").value.trim();
-        const email = document.getElementById("signup-email").value.trim();
-        const pass = document.getElementById("signup-password").value;
-        const confirm = document.getElementById(
-          "signup-confirm-password"
-        ).value;
-
-        if (first.length < 2) {
-          showError("firstname", "First name too short");
-          valid = false;
-        }
-        if (last.length < 2) {
-          showError("lastname", "Last name too short");
-          valid = false;
-        }
-        if (!email.includes("@")) {
-          showError("email", "Invalid email");
-          valid = false;
-        }
-        if (pass.length < 8) {
-          showError("password", "Weak password");
-          valid = false;
-        }
-        if (pass !== confirm) {
-          showError("confirm-password", "Passwords do not match");
-          valid = false;
-        }
-        if (!document.getElementById("terms-checkbox").checked) {
-          showError("terms", "You must accept terms");
-          valid = false;
-        }
-        return valid;
       }
 
-      async function handleSignup(event) {
-        event.preventDefault();
-        if (!validateForm()) return;
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          clearErrors();
 
-        const data = {
-          firstName: document.getElementById("signup-firstname").value.trim(),
-          lastName: document.getElementById("signup-lastname").value.trim(),
-          email: document.getElementById("signup-email").value.trim(),
-          phone: document.getElementById("signup-phone").value.trim(),
-          password: document.getElementById("signup-password").value,
-          newsletter: document.getElementById("newsletter-checkbox").checked,
-        };
+          const phone = document.getElementById("signup-phone").value.trim();
 
-        try {
+          if (!/^\d{10}$/.test(phone)) {
+            showError("phone-error", "Phone number must be 10 digits");
+            return;
+          }
+
+          if (passwordLevel < 2) {
+            showError(
+              "password-error",
+              "Password must be at least Medium strength"
+            );
+            return;
+          }
+
+          const password = passwordInput.value;
+          const confirm = document.getElementById(
+            "signup-confirm-password"
+          ).value;
+
+          if (password !== confirm) {
+            showError("confirm-password-error", "Passwords do not match");
+            return;
+          }
+
+          if (!document.getElementById("terms-checkbox").checked) {
+            showError("terms-error", "You must accept the terms");
+            return;
+          }
+
+          const data = {
+            firstName: document.getElementById("signup-firstname").value.trim(),
+            lastName: document.getElementById("signup-lastname").value.trim(),
+            email: document.getElementById("signup-email").value.trim(),
+            phone: phone,
+            password: password,
+          };
+
           const res = await fetch("api/signup.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -179,18 +242,14 @@
 
           const result = await res.json();
 
-          if (!res.ok) {
-            alert(result.message || "Registration failed");
+          if (!res.ok || !result.success) {
+            alert(result.message || "Signup failed");
             return;
           }
 
-          alert("Account created successfully");
+          alert("Account created successfully 🎉");
           window.location.href = "login.html";
-        } catch (err) {
-          alert("Server error");
-          alert(err.message);
-        }
-      }
+        });
     </script>
   </body>
 </html>
