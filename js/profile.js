@@ -195,7 +195,17 @@ avatarInput.addEventListener("change", () => {
 
 // LOGOUT
 function handleLogout() {
-  location.href = "logout.php";
+  if (!confirm("Are you sure you want to logout?")) return;
+
+  // حذف المستخدم من التخزين
+  localStorage.removeItem("currentUser");
+  sessionStorage.removeItem("currentUser");
+
+  // استدعاء API logout
+
+  fetch("../api/logout.php").finally(() => {
+    window.location.href = "login.html";
+  });
 }
 
 window.showSection = showSection;
