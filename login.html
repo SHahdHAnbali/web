@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Stilleto</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <div class="header-decoration"></div>
+
+    <div class="header">
+      <div class="header-left">
+        <a href="api/home.php"><img src="heels/logo1.png" alt="Logo" /></a>
+      </div>
+
+      <div class="header-right">
+        <a href="api/home.php">Home</a>
+        <a href="index.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html">New</a>
+        <a href="sale.html">Sale</a>
+
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> Track Order</a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i> Store Locator</a
+        >
+        <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact</a>
+
+        <div class="icon-badge" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge-pill" id="cart-count">0</span>
+        </div>
+
+        <div class="icon-badge">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge-pill" id="wishlist-count">0</span>
+        </div>
+
+        <a href="login.html" id="user-link">
+          <i class="fa-solid fa-user"></i> Login
+        </a>
+
+        <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+        <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="auth-container">
+      <div class="auth-box">
+        <h2>Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to your account</p>
+
+        <div id="error-message" class="login-error" style="display: none"></div>
+
+        <form class="auth-form" id="loginForm">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              id="login-email"
+              required
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <div class="password-input-wrapper">
+              <input
+                type="password"
+                id="login-password"
+                required
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                onclick="togglePasswordVisibility('login-password', this)"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" id="remember-checkbox" />
+              Remember me
+            </label>
+            <a
+              href="#"
+              onclick="alert('Password reset feature coming soon!'); return false;"
+              >Forgot Password?</a
+            >
+          </div>
+
+          <button type="submit" class="auth-btn">Sign In</button>
+
+          <div class="auth-divider"><span>OR</span></div>
+
+          <button
+            type="button"
+            class="social-btn google-btn"
+            onclick="alert('Google login coming soon!')"
+          >
+            <i class="fa-brands fa-google"></i> Continue with Google
+          </button>
+
+          <button
+            type="button"
+            class="social-btn facebook-btn"
+            onclick="alert('Facebook login coming soon!')"
+          >
+            <i class="fa-brands fa-facebook-f"></i> Continue with Facebook
+          </button>
+
+          <p class="auth-switch">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+          </p>
+        </form>
+
+        <div class="admin-hint">
+          <i class="fa-solid fa-shield-halved"></i>
+          <strong>Admin Access:</strong> Use admin credentials to access
+          dashboard
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+    </footer>
+
+    <script src="js/cart.js"></script>
+    <script src="js/global-functions.js"></script>
+
+    <script>
+      // Show error message
+      function showError(msg) {
+        const box = document.getElementById("error-message");
+        box.innerText = msg;
+        box.style.display = "flex";
+        box.style.animation = "shake 0.4s";
+        setTimeout(() => {
+          box.style.animation = "";
+        }, 400);
+      }
+
+      // Hide error message
+      function hideError() {
+        const box = document.getElementById("error-message");
+        box.style.display = "none";
+      }
+
+      // Password toggle visibility
+      function togglePasswordVisibility(id, btn) {
+        const input = document.getElementById(id);
+        const icon = btn.querySelector("i");
+        if (input.type === "password") {
+          input.type = "text";
+          icon.className = "fa-solid fa-eye-slash";
+        } else {
+          input.type = "password";
+          icon.className = "fa-solid fa-eye";
+        }
+      }
+
+      // LOGIN FORM SUBMISSION
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          hideError();
+
+          const email = document.getElementById("login-email").value.trim();
+          const password = document.getElementById("login-password").value;
+          const remember = document.getElementById("remember-checkbox").checked;
+
+          // Validation
+          if (!email || !password) {
+            showError("Email and password are required.");
+            return;
+          }
+
+          if (!email.includes("@")) {
+            showError("Please enter a valid email address.");
+            return;
+          }
+
+          // Show loading state
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = "Signing in...";
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch("./api/auth.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({
+                email: email,
+                password: password,
+                remember: remember,
+              }),
+            });
+
+            // Check if response is ok
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Login response:", data);
+
+            if (data.success && data.user) {
+              // Save user data to localStorage
+              const userData = {
+                id: data.user.id,
+                firstName: data.user.firstName,
+                lastName: data.user.lastName,
+                fullName: data.user.fullName,
+                email: data.user.email,
+                phone: data.user.phone || "",
+                role: data.user.role,
+                profileImage: data.user.profileImage || null,
+                lastLogin: data.user.lastLogin || new Date().toISOString(),
+                createdAt: data.user.createdAt || new Date().toISOString(),
+              };
+
+              localStorage.setItem("currentUser", JSON.stringify(userData));
+              console.log("✅ User logged in:", userData);
+
+              // Show success message
+              alert(`✅ Welcome back, ${userData.firstName}!`);
+
+              // Redirect based on response
+              setTimeout(() => {
+                if (data.redirect) {
+                  window.location.href = data.redirect;
+                } else if (userData.role === "ADMIN") {
+                  window.location.href = "admin.html";
+                } else {
+                  window.location.href = "api/home.php";
+                }
+              }, 300);
+            } else {
+              // Login failed
+              showError(data.error || "Invalid email or password.");
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            }
+          } catch (error) {
+            console.error("Login error:", error);
+            showError(
+              "Connection error. Please check if the server is running."
+            );
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+
+      // Check if already logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentUser = localStorage.getItem("currentUser");
+
+        if (currentUser) {
+          try {
+            const user = JSON.parse(currentUser);
+            const proceed = confirm(
+              `You are already logged in as ${
+                user.firstName || user.fullName
+              }.\n\n` + `Do you want to continue to your account?`
+            );
+
+            if (proceed) {
+              if (user.role === "ADMIN") {
+                window.location.href = "admin.html";
+              } else {
+                window.location.href = "api/home.php";
+              }
+            }
+          } catch (e) {
+            console.error("Error parsing user data:", e);
+            localStorage.removeItem("currentUser");
+          }
+        }
+      });
+
+      console.log("✅ Login page loaded");
+    </script>
+
+    <style>
+      .login-error {
+        background: #fee;
+        border: 2px solid #e74c3c;
+        color: #c0392b;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+      }
+
+      .login-error::before {
+        content: "⚠️";
+        font-size: 20px;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-8px);
+        }
+        75% {
+          transform: translateX(8px);
+        }
+      }
+
+      .admin-hint {
+        margin-top: 20px;
+        padding: 15px;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .admin-hint i {
+        color: #8c28b6;
+        margin-right: 5px;
+      }
+
+      .password-input-wrapper {
+        position: relative;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #7f8c8d;
+        padding: 5px;
+        transition: color 0.3s;
+      }
+
+      .toggle-password:hover {
+        color: #8c28b6;
+      }
+    </style>
+  </body>
+</html>
