@@ -1,54 +1,58 @@
 <?php
 require_once "config.php";
 
-/*
-  جلب جميع منتجات HEELS
-  + أول صورة لكل منتج
-  + الأسعار من variants (لو موجودة)
-*/
+header("Content-Type: application/json");
 
 $sql = "
-SELECT 
-    p.id,
-    p.name,
-    p.description,
-    p.base_price,
-    p.is_new,
-    p.is_on_sale,
-    MIN(pv.price) AS variant_price,
-    GROUP_CONCAT(DISTINCT pv.size ORDER BY pv.size) AS sizes,
-    GROUP_CONCAT(DISTINCT pv.color) AS colors,
-    pi.image_path
+SELECT
+  p.id,
+  p.name,
+  p.description,
+  p.base_price,
+  pi.image_path,
+  pv.size,
+  pv.color,
+  pv.stock
 FROM products p
-LEFT JOIN product_variants pv ON pv.product_id = p.id
-LEFT JOIN product_images pi ON pi.product_id = p.id
+LEFT JOIN product_images pi ON p.id = pi.product_id
+LEFT JOIN product_variants pv ON p.id = pv.product_id
 WHERE p.category = 'HEELS'
-GROUP BY p.id
-ORDER BY p.created_at DESC
+ORDER BY p.id DESC
 ";
 
 $result = $conn->query($sql);
 
-$heels = [];
+$products = [];
 
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch_assoc()) {
+    $id = $row['id'];
 
-        $heels[] = [
-            "id"          => $row["id"],
-            "name"        => $row["name"],
-            "description" => $row["description"],
-            "price"       => $row["variant_price"] ?? $row["base_price"],
-            "base_price"  => $row["base_price"],
-            "sizes"       => $row["sizes"] ? explode(",", $row["sizes"]) : [],
-            "colors"      => $row["colors"] ? explode(",", $row["colors"]) : [],
-            "image"       => $row["image_path"] ?? "heels/default.png",
-            "is_new"      => (bool)$row["is_new"],
-            "is_on_sale"  => (bool)$row["is_on_sale"]
+    if (!isset($products[$id])) {
+        $products[$id] = [
+            "id" => $id,
+            "name" => $row['name'],
+            "description" => $row['description'],
+            "price" => $row['base_price'],
+            "images" => [],
+            "colors" => [],
+            "sizes" => []
         ];
+    }
+
+    // Add image if exists and not duplicate
+    if (!empty($row['image_path']) && !in_array($row['image_path'], $products[$id]["images"])) {
+        $products[$id]["images"][] = $row['image_path'];
+    }
+
+    // Add color if exists and not duplicate
+    if (!empty($row['color']) && !in_array($row['color'], $products[$id]["colors"])) {
+        $products[$id]["colors"][] = $row['color'];
+    }
+
+    // Add size if exists and not duplicate
+    if (!empty($row['size']) && !in_array($row['size'], $products[$id]["sizes"])) {
+        $products[$id]["sizes"][] = $row['size'];
     }
 }
 
-/* لو بدك JSON (للـ JS / AJAX) */
-header("Content-Type: application/json");
-echo json_encode($heels, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode(array_values($products), JSON_UNESCAPED_SLASHES);
