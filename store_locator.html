@@ -1,208 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Store Locator - Stilleto</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-  <div class="header-decoration"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Locator - Stilleto</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div class="header-decoration"></div>
 
-  <div class="header">
-  <div class="header-left">
-    <a href="home.html"><img src="heels/logo1.png" alt="Logo"></a>
-  </div>
-  <div class="header-right">
-    <!-- Main Navigation -->
-    <a href="home.html">Home</a>
-    <a href="index.html">Heels</a>
-    <a href="bags.html">Bags</a>
-    <a href="made_to_order.html">Bespoke</a>
-    <a href="new-arrivals.html">New</a>
-    <a href="sale.html">Sale</a>
-    
-    <!-- Secondary Navigation -->
-    <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
-    <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
-    <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
-  
-    <!-- Cart Badge -->
-    <div class="icon-badge" onclick="toggleCart()">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span class="badge-pill" id="cart-count">0</span>
-    </div>
-  
-    <!-- Wishlist Badge -->
-    <div class="icon-badge" onclick="viewWishlist()">
-      <i class="fa-solid fa-heart"></i>
-      <span class="badge-pill" id="wishlist-count">0</span>
-    </div>
-  
-    <!-- User Account -->
-    <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
-    
-    <!-- Theme Toggle -->
-    <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
-    
-    <!-- Mobile Menu Toggle -->
-    <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
-  </div>
-  </div>
-
-<!-- STORE LOCATOR PAGE -->
-<div class="info-container">
-  <div class="info-header">
-    <i class="fa-solid fa-location-dot"></i>
-    <h2>Store Locator</h2>
-    <p>Find our stores near you</p>
-  </div>
-  
-  <div class="store-search">
-    <input type="text" placeholder="Enter city or postal code" id="store-search-input">
-    <button class="info-btn" onclick="searchStores()">
-      <i class="fa-solid fa-search"></i> Search
-    </button>
-  </div>
-  
-  <div class="stores-grid">
-    <div class="store-card">
-      <div class="store-icon">
-        <i class="fa-solid fa-store"></i>
+    <div class="header">
+      <div class="header-left">
+        <a href="home.html"><img src="heels/logo1.png" alt="Logo" /></a>
       </div>
-      <h3>Ramallah Store</h3>
-      <p class="store-address">
-        <i class="fa-solid fa-location-dot"></i>
-        Main Street, Ramallah, West Bank
-      </p>
-      <p class="store-hours">
-        <i class="fa-solid fa-clock"></i>
-        Sun - Thu: 9:00 AM - 8:00 PM
-      </p>
-      <p class="store-phone">
-        <i class="fa-solid fa-phone"></i>
-        <a href="tel:+97021234567">+970 2 123 4567</a>
-      </p>
-      <button class="store-btn" onclick="getDirections('Ramallah')">Get Directions</button>
-    </div>
-    
-    <div class="store-card">
-      <div class="store-icon">
-        <i class="fa-solid fa-store"></i>
+      <div class="header-right">
+        <!-- Main Navigation -->
+        <a href="home.html">Home</a>
+        <a href="heels.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html">New</a>
+        <a href="sale.html">Sale</a>
+
+        <!-- Secondary Navigation -->
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> <span>Track Order</span></a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i>
+          <span>Store Locator</span></a
+        >
+        <a href="contact.html"
+          ><i class="fa-solid fa-phone"></i> <span>Contact</span></a
+        >
+
+        <!-- Cart Badge -->
+        <div class="icon-badge" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge-pill" id="cart-count">0</span>
+        </div>
+
+        <!-- Wishlist Badge -->
+        <div class="icon-badge" onclick="viewWishlist()">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge-pill" id="wishlist-count">0</span>
+        </div>
+
+        <!-- User Account -->
+        <a href="login.html" id="user-link"
+          ><i class="fa-solid fa-user"></i> <span>Login</span></a
+        >
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
       </div>
-      <h3>Nablus Store</h3>
-      <p class="store-address">
-        <i class="fa-solid fa-location-dot"></i>
-        Old City, Nablus, West Bank
-      </p>
-      <p class="store-hours">
-        <i class="fa-solid fa-clock"></i>
-        Sun - Thu: 10:00 AM - 7:00 PM
-      </p>
-      <p class="store-phone">
-        <i class="fa-solid fa-phone"></i>
-        <a href="tel:+97092345678">+970 9 234 5678</a>
-      </p>
-      <button class="store-btn" onclick="getDirections('Nablus')">Get Directions</button>
     </div>
-    
-    <div class="store-card">
-      <div class="store-icon">
-        <i class="fa-solid fa-store"></i>
+
+    <!-- STORE LOCATOR PAGE -->
+    <div class="info-container">
+      <div class="info-header">
+        <i class="fa-solid fa-location-dot"></i>
+        <h2>Store Locator</h2>
+        <p>Find our stores near you</p>
       </div>
-      <h3>Bethlehem Store</h3>
-      <p class="store-address">
-        <i class="fa-solid fa-location-dot"></i>
-        Manger Square, Bethlehem, West Bank
-      </p>
-      <p class="store-hours">
-        <i class="fa-solid fa-clock"></i>
-        Sun - Thu: 9:00 AM - 9:00 PM
-      </p>
-      <p class="store-phone">
-        <i class="fa-solid fa-phone"></i>
-        <a href="tel:+97023456789">+970 2 345 6789</a>
-      </p>
-      <button class="store-btn" onclick="getDirections('Bethlehem')">Get Directions</button>
-    </div>
-    
-    <div class="store-card">
-      <div class="store-icon">
-        <i class="fa-solid fa-store"></i>
+
+      <div class="store-search">
+        <input
+          type="text"
+          placeholder="Enter city or postal code"
+          id="store-search-input"
+        />
+        <button class="info-btn" onclick="searchStores()">
+          <i class="fa-solid fa-search"></i> Search
+        </button>
       </div>
-      <h3>Hebron Store</h3>
-      <p class="store-address">
-        <i class="fa-solid fa-location-dot"></i>
-        Al-Khalil, Hebron, West Bank
-      </p>
-      <p class="store-hours">
-        <i class="fa-solid fa-clock"></i>
-        Sun - Thu: 9:30 AM - 7:30 PM
-      </p>
-      <p class="store-phone">
-        <i class="fa-solid fa-phone"></i>
-        <a href="tel:+97024567890">+970 2 456 7890</a>
-      </p>
-      <button class="store-btn" onclick="getDirections('Hebron')">Get Directions</button>
+
+      <div class="stores-grid">
+        <div class="store-card">
+          <div class="store-icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Ramallah Store</h3>
+          <p class="store-address">
+            <i class="fa-solid fa-location-dot"></i>
+            Main Street, Ramallah, West Bank
+          </p>
+          <p class="store-hours">
+            <i class="fa-solid fa-clock"></i>
+            Sun - Thu: 9:00 AM - 8:00 PM
+          </p>
+          <p class="store-phone">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+97021234567">+970 2 123 4567</a>
+          </p>
+          <button class="store-btn" onclick="getDirections('Ramallah')">
+            Get Directions
+          </button>
+        </div>
+
+        <div class="store-card">
+          <div class="store-icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Nablus Store</h3>
+          <p class="store-address">
+            <i class="fa-solid fa-location-dot"></i>
+            Old City, Nablus, West Bank
+          </p>
+          <p class="store-hours">
+            <i class="fa-solid fa-clock"></i>
+            Sun - Thu: 10:00 AM - 7:00 PM
+          </p>
+          <p class="store-phone">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+97092345678">+970 9 234 5678</a>
+          </p>
+          <button class="store-btn" onclick="getDirections('Nablus')">
+            Get Directions
+          </button>
+        </div>
+
+        <div class="store-card">
+          <div class="store-icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Bethlehem Store</h3>
+          <p class="store-address">
+            <i class="fa-solid fa-location-dot"></i>
+            Manger Square, Bethlehem, West Bank
+          </p>
+          <p class="store-hours">
+            <i class="fa-solid fa-clock"></i>
+            Sun - Thu: 9:00 AM - 9:00 PM
+          </p>
+          <p class="store-phone">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+97023456789">+970 2 345 6789</a>
+          </p>
+          <button class="store-btn" onclick="getDirections('Bethlehem')">
+            Get Directions
+          </button>
+        </div>
+
+        <div class="store-card">
+          <div class="store-icon">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <h3>Hebron Store</h3>
+          <p class="store-address">
+            <i class="fa-solid fa-location-dot"></i>
+            Al-Khalil, Hebron, West Bank
+          </p>
+          <p class="store-hours">
+            <i class="fa-solid fa-clock"></i>
+            Sun - Thu: 9:30 AM - 7:30 PM
+          </p>
+          <p class="store-phone">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+97024567890">+970 2 456 7890</a>
+          </p>
+          <button class="store-btn" onclick="getDirections('Hebron')">
+            Get Directions
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- SHOPPING CART SIDEBAR -->
-<div id="cartSidebar" class="cart-sidebar">
-  <div class="cart-header">
-    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
-    <button class="cart-close" onclick="toggleCart()">&times;</button>
-  </div>
-  
-  <div class="cart-items" id="cartItemsContainer">
-    <div class="cart-empty">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <p>Your bag is empty</p>
+    <!-- SHOPPING CART SIDEBAR -->
+    <div id="cartSidebar" class="cart-sidebar">
+      <div class="cart-header">
+        <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+        <button class="cart-close" onclick="toggleCart()">&times;</button>
+      </div>
+
+      <div class="cart-items" id="cartItemsContainer">
+        <div class="cart-empty">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <p>Your bag is empty</p>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span>SUBTOTAL</span>
+          <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="proceedToCheckout()">
+          CHECKOUT
+        </button>
+        <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
+      </div>
     </div>
-  </div>
-  
-  <div class="cart-footer">
-    <div class="cart-subtotal">
-      <span>SUBTOTAL</span>
-      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
-    </div>
-    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
-    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
-  </div>
-</div>
 
-<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-<footer>
-<p>&copy; 2025 Stilleto | All rights reserved.</p>
-<p>
-  <a href="#" onclick="alert('Privacy Policy page coming soon'); return false;">Privacy Policy</a> | 
-  <a href="#" onclick="alert('Terms of Service page coming soon'); return false;">Terms of Service</a> | 
-  <a href="contact.html">Help</a>
-</p>
-</footer>
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+      <p>
+        <a
+          href="#"
+          onclick="alert('Privacy Policy page coming soon'); return false;"
+          >Privacy Policy</a
+        >
+        |
+        <a
+          href="#"
+          onclick="alert('Terms of Service page coming soon'); return false;"
+          >Terms of Service</a
+        >
+        |
+        <a href="contact.html">Help</a>
+      </p>
+    </footer>
 
-<script src="js/auth.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/global-functions.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/global-functions.js"></script>
 
-<script>
-// Theme toggle
-document.querySelector('.theme-toggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const icon = document.querySelector('.theme-toggle i');
-  if (document.body.classList.contains('dark')) {
-    icon.className = 'fa-solid fa-sun';
-  } else {
-    icon.className = 'fa-solid fa-moon';
-  }
-});
+    <script>
+      // Theme toggle
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        const icon = document.querySelector(".theme-toggle i");
+        if (document.body.classList.contains("dark")) {
+          icon.className = "fa-solid fa-sun";
+        } else {
+          icon.className = "fa-solid fa-moon";
+        }
+      });
 
-// Update user display
-updateHeaderForUser();
-</script>
-
-</body>
+      // Update user display
+      updateHeaderForUser();
+    </script>
+  </body>
 </html>

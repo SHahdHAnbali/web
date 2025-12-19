@@ -5,73 +5,73 @@
 
 // Product data for quick add functionality
 const homeProducts = {
-  'Green Mirror Pumps': {
+  "Green Mirror Pumps": {
     title: "Green Mirror Pumps",
     price: "NIS 120.00",
     image: "heels/green_mirror.png",
-    size: "35"
+    size: "35",
   },
-  'Pink Suede Heels': {
+  "Pink Suede Heels": {
     title: "Pink Suede Heels",
     price: "NIS 150.00",
     image: "heels/dark_pink_suede.png",
-    size: "36"
+    size: "36",
   },
-  'Purple Suede Heels': {
+  "Purple Suede Heels": {
     title: "Purple Suede Heels",
     price: "NIS 180.00",
     image: "heels/dark_purple_suede.png",
-    size: "37"
+    size: "37",
   },
-  'Burgundy Mini Bag': {
+  "Burgundy Mini Bag": {
     title: "Burgundy Mini Bag",
     price: "NIS 120.00",
     image: "bags/strath_burgundy1.png",
-    size: "mini bag"
+    size: "mini bag",
   },
-  'Classic Black Leather': {
+  "Classic Black Leather": {
     title: "Classic Black Leather",
     price: "NIS 180.00",
     image: "heels/black_leather.png",
-    size: "38"
+    size: "38",
   },
-  'Silver Metallic Pumps': {
+  "Silver Metallic Pumps": {
     title: "Silver Metallic Pumps",
     price: "NIS 200.00",
     image: "heels/silver.png",
-    size: "37"
+    size: "37",
   },
-  'Red Suede Elegance': {
+  "Red Suede Elegance": {
     title: "Red Suede Elegance",
     price: "NIS 196.00",
     image: "heels/dark_red_suede.png",
-    size: "36"
-  }
+    size: "36",
+  },
 };
 
 // Hero Slider
 let currentSlide = 0;
-const slides = document.querySelectorAll('.hero-slide');
-const indicators = document.querySelectorAll('.indicator');
+const slides = document.querySelectorAll(".hero-slide");
+const indicators = document.querySelectorAll(".indicator");
 
 function changeSlide(direction) {
-  slides[currentSlide].classList.remove('active');
-  indicators[currentSlide].classList.remove('active');
-  
+  slides[currentSlide].classList.remove("active");
+  indicators[currentSlide].classList.remove("active");
+
   currentSlide = (currentSlide + direction + slides.length) % slides.length;
-  
-  slides[currentSlide].classList.add('active');
-  indicators[currentSlide].classList.add('active');
+
+  slides[currentSlide].classList.add("active");
+  indicators[currentSlide].classList.add("active");
 }
 
 function goToSlide(index) {
-  slides[currentSlide].classList.remove('active');
-  indicators[currentSlide].classList.remove('active');
-  
+  slides[currentSlide].classList.remove("active");
+  indicators[currentSlide].classList.remove("active");
+
   currentSlide = index;
-  
-  slides[currentSlide].classList.add('active');
-  indicators[currentSlide].classList.add('active');
+
+  slides[currentSlide].classList.add("active");
+  indicators[currentSlide].classList.add("active");
 }
 
 // Auto slide every 5 seconds
@@ -86,45 +86,47 @@ window.goToSlide = goToSlide;
 // Countdown Timer - FIXED
 function updateCountdown() {
   // Get or set sale end date (7 days from first visit)
-  let endDate = localStorage.getItem('saleEndDate');
-  
+  let endDate = localStorage.getItem("saleEndDate");
+
   if (!endDate) {
     // First time - set sale end date to 7 days from now
     const newEndDate = new Date();
     newEndDate.setDate(newEndDate.getDate() + 7);
     endDate = newEndDate.getTime();
-    localStorage.setItem('saleEndDate', endDate);
+    localStorage.setItem("saleEndDate", endDate);
   } else {
     endDate = parseInt(endDate);
   }
-  
+
   const now = new Date().getTime();
   const distance = endDate - now;
-  
+
   // Check if sale has ended
   if (distance < 0) {
     // Sale ended - reset for new sale (7 days from now)
     const newEndDate = new Date();
     newEndDate.setDate(newEndDate.getDate() + 7);
-    localStorage.setItem('saleEndDate', newEndDate.getTime());
+    localStorage.setItem("saleEndDate", newEndDate.getTime());
     updateCountdown();
     return;
   }
-  
+
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-  const daysEl = document.getElementById('days');
-  const hoursEl = document.getElementById('hours');
-  const minutesEl = document.getElementById('minutes');
-  const secondsEl = document.getElementById('seconds');
-  
-  if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-  if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-  if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-  if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+
+  if (daysEl) daysEl.textContent = String(days).padStart(2, "0");
+  if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+  if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
+  if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
 }
 
 // Update countdown every second
@@ -132,30 +134,35 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // Newsletter form handler - FIXED with email simulation
-window.handleNewsletter = function(event) {
+window.handleNewsletter = function (event) {
   event.preventDefault();
   const email = event.target.querySelector('input[type="email"]').value;
-  
-  const subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
-  
+
+  const subscriptions = JSON.parse(
+    localStorage.getItem("newsletterSubscriptions") || "[]"
+  );
+
   if (subscriptions.includes(email)) {
-    alert('You are already subscribed to our newsletter!');
+    alert("You are already subscribed to our newsletter!");
     return;
   }
-  
+
   subscriptions.push(email);
-  localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
-  
+  localStorage.setItem(
+    "newsletterSubscriptions",
+    JSON.stringify(subscriptions)
+  );
+
   // Simulate sending email
   showEmailSimulation(email);
-  
+
   event.target.reset();
-}
+};
 
 // Simulate email being sent
 function showEmailSimulation(email) {
   // Create email preview overlay
-  const emailOverlay = document.createElement('div');
+  const emailOverlay = document.createElement("div");
   emailOverlay.style.cssText = `
     position: fixed;
     top: 0;
@@ -169,8 +176,8 @@ function showEmailSimulation(email) {
     z-index: 100000;
     animation: fadeIn 0.3s ease;
   `;
-  
-  const emailBox = document.createElement('div');
+
+  const emailBox = document.createElement("div");
   emailBox.style.cssText = `
     background: white;
     max-width: 600px;
@@ -182,7 +189,7 @@ function showEmailSimulation(email) {
     max-height: 80vh;
     overflow-y: auto;
   `;
-  
+
   emailBox.innerHTML = `
     <div style="text-align: center; margin-bottom: 30px;">
       <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #27ae60, #2ecc71); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
@@ -221,7 +228,7 @@ function showEmailSimulation(email) {
         </ul>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="index.html" style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #8C28B6, #c0392b); color: white; text-decoration: none; border-radius: 50px; font-weight: 600;">
+          <a href="heels.html" style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #8C28B6, #c0392b); color: white; text-decoration: none; border-radius: 50px; font-weight: 600;">
             Start Shopping Now
           </a>
         </div>
@@ -246,20 +253,20 @@ function showEmailSimulation(email) {
       </button>
     </div>
   `;
-  
+
   emailOverlay.appendChild(emailBox);
   document.body.appendChild(emailOverlay);
-  
+
   // Auto-close after 15 seconds
   setTimeout(() => {
     if (emailOverlay.parentNode) {
-      emailOverlay.style.animation = 'fadeOut 0.3s ease';
+      emailOverlay.style.animation = "fadeOut 0.3s ease";
       setTimeout(() => emailOverlay.remove(), 300);
     }
   }, 15000);
-  
+
   // Close on overlay click
-  emailOverlay.onclick = function(e) {
+  emailOverlay.onclick = function (e) {
     if (e.target === emailOverlay) {
       emailOverlay.remove();
     }
@@ -267,7 +274,7 @@ function showEmailSimulation(email) {
 }
 
 // Add animation styles
-const animationStyles = document.createElement('style');
+const animationStyles = document.createElement("style");
 animationStyles.textContent = `
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -285,56 +292,59 @@ animationStyles.textContent = `
 document.head.appendChild(animationStyles);
 
 // Theme toggle
-document.addEventListener('DOMContentLoaded', function() {
-  const themeToggle = document.querySelector('.theme-toggle');
+document.addEventListener("DOMContentLoaded", function () {
+  const themeToggle = document.querySelector(".theme-toggle");
   if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      const icon = themeToggle.querySelector('i');
-      if (document.body.classList.contains('dark')) {
-        icon.className = 'fa-solid fa-sun';
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const icon = themeToggle.querySelector("i");
+      if (document.body.classList.contains("dark")) {
+        icon.className = "fa-solid fa-sun";
       } else {
-        icon.className = 'fa-solid fa-moon';
+        icon.className = "fa-solid fa-moon";
       }
     });
   }
-  
+
   // Initialize Quick Add buttons with cart integration
   initializeQuickAddButtons();
-  
+
   // Initialize wishlist icons
   initializeWishlistIcons();
 });
 
 // Initialize Quick Add buttons - FIXED VERSION
 function initializeQuickAddButtons() {
-  document.querySelectorAll('.quick-add-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+  document.querySelectorAll(".quick-add-btn").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
       e.stopPropagation();
-      
-      const productCard = this.closest('.product-card-home') || this.closest('.featured-product');
+
+      const productCard =
+        this.closest(".product-card-home") || this.closest(".featured-product");
       if (!productCard) return;
-      
-      const productName = productCard.querySelector('h4').textContent.trim();
-      const priceElement = productCard.querySelector('.product-price-home, .sale-price');
-      
+
+      const productName = productCard.querySelector("h4").textContent.trim();
+      const priceElement = productCard.querySelector(
+        ".product-price-home, .sale-price"
+      );
+
       if (!priceElement) return;
-      
+
       const productPrice = priceElement.textContent.trim();
-      
+
       // Get product data from our database
       const product = homeProducts[productName];
-      
+
       if (!product) {
-        console.warn('Product not found:', productName);
+        console.warn("Product not found:", productName);
         // Fallback: use data from card
-        const productImage = productCard.querySelector('img');
+        const productImage = productCard.querySelector("img");
         addToCartGlobal({
           title: productName,
           price: productPrice,
-          image: productImage ? productImage.src : 'heels/default.png',
-          size: '37',
-          quantity: 1
+          image: productImage ? productImage.src : "heels/default.png",
+          size: "37",
+          quantity: 1,
         });
       } else {
         // Use product data from database
@@ -343,28 +353,28 @@ function initializeQuickAddButtons() {
           price: product.price,
           image: product.image,
           size: product.size,
-          quantity: 1
+          quantity: 1,
         });
       }
-      
+
       // Visual feedback - button animation
       const originalText = this.textContent;
-      this.textContent = '✓ Added!';
-      this.style.background = '#27ae60';
-      
+      this.textContent = "✓ Added!";
+      this.style.background = "#27ae60";
+
       setTimeout(() => {
         this.textContent = originalText;
-        this.style.background = '';
+        this.style.background = "";
       }, 1500);
-      
+
       // Show notification
       showNotification(`${productName} added to cart!`);
-      
+
       // Animate cart badge
-      const cartBadge = document.getElementById('cart-count');
+      const cartBadge = document.getElementById("cart-count");
       if (cartBadge) {
-        cartBadge.classList.add('animate');
-        setTimeout(() => cartBadge.classList.remove('animate'), 300);
+        cartBadge.classList.add("animate");
+        setTimeout(() => cartBadge.classList.remove("animate"), 300);
       }
     });
   });
@@ -372,26 +382,28 @@ function initializeQuickAddButtons() {
 
 // Initialize wishlist functionality
 function initializeWishlistIcons() {
-  document.querySelectorAll('.wishlist-icon').forEach(icon => {
-    icon.addEventListener('click', function(e) {
+  document.querySelectorAll(".wishlist-icon").forEach((icon) => {
+    icon.addEventListener("click", function (e) {
       e.stopPropagation();
-      this.classList.toggle('active');
-      
-      if (this.classList.contains('active')) {
-        this.style.color = '#e74c3c';
-        this.style.backgroundColor = '#fee';
+      this.classList.toggle("active");
+
+      if (this.classList.contains("active")) {
+        this.style.color = "#e74c3c";
+        this.style.backgroundColor = "#fee";
       } else {
-        this.style.color = '';
-        this.style.backgroundColor = 'white';
+        this.style.color = "";
+        this.style.backgroundColor = "white";
       }
-      
+
       // Update wishlist count
-      const activeWishlists = document.querySelectorAll('.wishlist-icon.active').length;
-      const wishlistBadge = document.getElementById('wishlist-count');
+      const activeWishlists = document.querySelectorAll(
+        ".wishlist-icon.active"
+      ).length;
+      const wishlistBadge = document.getElementById("wishlist-count");
       if (wishlistBadge) {
         wishlistBadge.textContent = activeWishlists;
-        wishlistBadge.classList.add('animate');
-        setTimeout(() => wishlistBadge.classList.remove('animate'), 300);
+        wishlistBadge.classList.add("animate");
+        setTimeout(() => wishlistBadge.classList.remove("animate"), 300);
       }
     });
   });
@@ -399,7 +411,7 @@ function initializeWishlistIcons() {
 
 // Show notification
 function showNotification(message) {
-  const notification = document.createElement('div');
+  const notification = document.createElement("div");
   notification.style.cssText = `
     position: fixed;
     top: 100px;
@@ -414,11 +426,11 @@ function showNotification(message) {
     animation: slideIn 0.3s ease;
   `;
   notification.textContent = message;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
-    notification.style.animation = 'slideOut 0.3s ease';
+    notification.style.animation = "slideOut 0.3s ease";
     setTimeout(() => {
       document.body.removeChild(notification);
     }, 300);
@@ -426,7 +438,7 @@ function showNotification(message) {
 }
 
 // Add animation keyframes
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   @keyframes slideIn {
     from {
@@ -453,14 +465,14 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href !== '#' && document.querySelector(href)) {
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+    if (href !== "#" && document.querySelector(href)) {
       e.preventDefault();
       document.querySelector(href).scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+        behavior: "smooth",
+        block: "start",
       });
     }
   });
@@ -469,146 +481,161 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Intersection Observer for fade-in animations
 const observerOptions = {
   threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
+  rootMargin: "0px 0px -50px 0px",
 };
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
     }
   });
 }, observerOptions);
 
 // Observe sections for animation
-document.addEventListener('DOMContentLoaded', function() {
-  const sections = document.querySelectorAll('.features-section, .categories-section, .new-arrivals-section, .discount-section, .featured-section, .bespoke-banner, .testimonials-section, .instagram-section, .newsletter-section');
-  
-  sections.forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll(
+    ".features-section, .categories-section, .new-arrivals-section, .discount-section, .featured-section, .bespoke-banner, .testimonials-section, .instagram-section, .newsletter-section"
+  );
+
+  sections.forEach((section) => {
+    section.style.opacity = "0";
+    section.style.transform = "translateY(30px)";
+    section.style.transition = "opacity 0.6s ease, transform 0.6s ease";
     observer.observe(section);
   });
 });
 
 // Product card click to view details
-document.querySelectorAll('.product-card-home, .featured-product').forEach(card => {
-  card.addEventListener('click', function(e) {
-    // Don't navigate if clicking wishlist or quick add button
-    if (e.target.closest('.wishlist-icon') || e.target.closest('.quick-add-btn')) {
-      return;
-    }
-    window.location.href = 'index.html';
+document
+  .querySelectorAll(".product-card-home, .featured-product")
+  .forEach((card) => {
+    card.addEventListener("click", function (e) {
+      // Don't navigate if clicking wishlist or quick add button
+      if (
+        e.target.closest(".wishlist-icon") ||
+        e.target.closest(".quick-add-btn")
+      ) {
+        return;
+      }
+      window.location.href = "heels.html";
+    });
   });
-});
 
 // Parallax effect for hero section
-window.addEventListener('scroll', function() {
+window.addEventListener("scroll", function () {
   const scrolled = window.pageYOffset;
-  const heroSlides = document.querySelectorAll('.hero-slide');
-  
-  heroSlides.forEach(slide => {
-    if (slide.classList.contains('active')) {
+  const heroSlides = document.querySelectorAll(".hero-slide");
+
+  heroSlides.forEach((slide) => {
+    if (slide.classList.contains("active")) {
       slide.style.transform = `translateY(${scrolled * 0.5}px)`;
     }
   });
 });
 
 // Lazy loading images
-if ('IntersectionObserver' in window) {
+if ("IntersectionObserver" in window) {
   const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target;
         img.src = img.dataset.src || img.src;
-        img.classList.add('loaded');
+        img.classList.add("loaded");
         observer.unobserve(img);
       }
     });
   });
 
-  document.querySelectorAll('img').forEach(img => {
+  document.querySelectorAll("img").forEach((img) => {
     imageObserver.observe(img);
   });
 }
 
 // Mobile menu toggle
-document.querySelector('.toggle-sidebar')?.addEventListener('click', function() {
-  const sidebar = document.querySelector('.sidebar');
-  if (sidebar) {
-    sidebar.classList.toggle('active');
-  }
-});
+document
+  .querySelector(".toggle-sidebar")
+  ?.addEventListener("click", function () {
+    const sidebar = document.querySelector(".sidebar");
+    if (sidebar) {
+      sidebar.classList.toggle("active");
+    }
+  });
 
 // Featured product hover effect
-document.querySelectorAll('.featured-product, .product-card-home').forEach(product => {
-  product.addEventListener('mouseenter', function() {
-    this.style.transform = 'translateY(-10px) scale(1.02)';
+document
+  .querySelectorAll(".featured-product, .product-card-home")
+  .forEach((product) => {
+    product.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-10px) scale(1.02)";
+    });
+
+    product.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0) scale(1)";
+    });
   });
-  
-  product.addEventListener('mouseleave', function() {
-    this.style.transform = 'translateY(0) scale(1)';
-  });
-});
 
 // Category card tilt effect
-document.querySelectorAll('.category-card').forEach(card => {
-  card.addEventListener('mousemove', function(e) {
+document.querySelectorAll(".category-card").forEach((card) => {
+  card.addEventListener("mousemove", function (e) {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    
+
     const rotateX = (y - centerY) / 20;
     const rotateY = (centerX - x) / 20;
-    
+
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
   });
-  
-  card.addEventListener('mouseleave', function() {
-    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+
+  card.addEventListener("mouseleave", function () {
+    card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
   });
 });
 
 // Instagram grid hover effect
-document.querySelectorAll('.instagram-item').forEach(item => {
-  item.addEventListener('click', function() {
-    window.open('https://instagram.com/stilleto', '_blank');
+document.querySelectorAll(".instagram-item").forEach((item) => {
+  item.addEventListener("click", function () {
+    window.open("https://instagram.com/stilleto", "_blank");
   });
 });
 
 // Auto-update year in footer
-const yearElements = document.querySelectorAll('footer p');
-yearElements.forEach(el => {
-  if (el.textContent.includes('2025')) {
+const yearElements = document.querySelectorAll("footer p");
+yearElements.forEach((el) => {
+  if (el.textContent.includes("2025")) {
     const currentYear = new Date().getFullYear();
-    el.textContent = el.textContent.replace('2025', currentYear);
+    el.textContent = el.textContent.replace("2025", currentYear);
   }
 });
 
 // Store scroll position
-window.addEventListener('beforeunload', function() {
-  sessionStorage.setItem('scrollPosition', window.scrollY);
+window.addEventListener("beforeunload", function () {
+  sessionStorage.setItem("scrollPosition", window.scrollY);
 });
 
 // Restore scroll position
-window.addEventListener('load', function() {
-  const scrollPosition = sessionStorage.getItem('scrollPosition');
+window.addEventListener("load", function () {
+  const scrollPosition = sessionStorage.getItem("scrollPosition");
   if (scrollPosition) {
     window.scrollTo(0, parseInt(scrollPosition));
-    sessionStorage.removeItem('scrollPosition');
+    sessionStorage.removeItem("scrollPosition");
   }
 });
 
 // Add visual feedback for all clickable elements
-document.querySelectorAll('a, button, .product-card-home, .featured-product, .category-card').forEach(element => {
-  element.style.cursor = 'pointer';
-  element.style.transition = 'all 0.3s ease';
-});
+document
+  .querySelectorAll(
+    "a, button, .product-card-home, .featured-product, .category-card"
+  )
+  .forEach((element) => {
+    element.style.cursor = "pointer";
+    element.style.transition = "all 0.3s ease";
+  });
 
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
@@ -624,68 +651,74 @@ function debounce(func, wait) {
 }
 
 // Optimized scroll handler
-const handleScroll = debounce(function() {
+const handleScroll = debounce(function () {
   const scrolled = window.pageYOffset;
-  
+
   // Add header shadow on scroll
-  const header = document.querySelector('.header');
+  const header = document.querySelector(".header");
   if (header) {
     if (scrolled > 50) {
-      header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      header.style.boxShadow = "0 4px 20px rgba(0,0,0,0.1)";
     } else {
-      header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+      header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
     }
   }
 }, 10);
 
-window.addEventListener('scroll', handleScroll);
+window.addEventListener("scroll", handleScroll);
 
 // Console welcome message
-console.log('%c Welcome to Stilleto! ', 'background: linear-gradient(135deg, #8C28B6 0%, #c0392b 100%); color: white; padding: 10px 20px; font-size: 16px; font-weight: bold;');
-console.log('%c Handcrafted luxury heels & bags from Italy ', 'color: #8C28B6; font-size: 14px; padding: 5px;');
+console.log(
+  "%c Welcome to Stilleto! ",
+  "background: linear-gradient(135deg, #8C28B6 0%, #c0392b 100%); color: white; padding: 10px 20px; font-size: 16px; font-weight: bold;"
+);
+console.log(
+  "%c Handcrafted luxury heels & bags from Italy ",
+  "color: #8C28B6; font-size: 14px; padding: 5px;"
+);
 
 // ============================================
 // NAVIGATION FUNCTIONS FOR HOME PAGE BUTTONS
 // ============================================
 
 // View All button in New Arrivals section
-window.viewAllProducts = function() {
-  window.location.href = 'index.html';
+window.viewAllProducts = function () {
+  window.location.href = "heels.html";
 };
 
 // Shop Sale button in discount section
-window.shopSale = function() {
+window.shopSale = function () {
   // Navigate to shop page with sale filter
-  sessionStorage.setItem('filterBySale', 'true');
-  window.location.href = 'index.html';
+  sessionStorage.setItem("filterBySale", "true");
+  window.location.href = "heels.html";
 };
 
 // Category navigation functions
-window.goToCategory = function(category) {
-  sessionStorage.setItem('filterCategory', category);
-  if (category === 'bags') {
-    window.location.href = 'bags.html';
-  } else if (category === 'bespoke') {
-    window.location.href = 'made_to_order.html';
+window.goToCategory = function (category) {
+  sessionStorage.setItem("filterCategory", category);
+  if (category === "bags") {
+    window.location.href = "bags.html";
+  } else if (category === "bespoke") {
+    window.location.href = "made_to_order.html";
   } else {
-    window.location.href = 'index.html';
+    window.location.href = "heels.html";
   }
 };
 
 // Initialize everything when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Animate elements on load
   setTimeout(() => {
-    document.querySelectorAll('.hero-content').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
+    document.querySelectorAll(".hero-content").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
     });
   }, 100);
-  
+
   // Initialize tooltips for badges
-  document.querySelectorAll('.product-badge').forEach(badge => {
+  document.querySelectorAll(".product-badge").forEach((badge) => {
     badge.title = badge.textContent;
   });
-  
-  console.log('✓ Homepage initialized successfully with cart integration');
+
+  console.log("✓ Homepage initialized successfully with cart integration");
 });
