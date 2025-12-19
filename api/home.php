@@ -80,7 +80,7 @@ if (file_exists('config.php')) {
       <div class="header-right">
         <!-- Main Navigation -->
         <a href="home.php">Home</a>
-        <a href="../index.html">Heels</a>
+        <a href="../heels.html">Heels</a>
         <a href="../bags.html">Bags</a>
         <a href="../made_to_order.html">Bespoke</a>
         <a href="../new-arrivals.html">New</a>

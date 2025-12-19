@@ -1,423 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Bespoke Heels - Stilleto</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/bespoke.css">
-</head>
-<body>
-  <div class="header-decoration"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bespoke Heels - Stilleto</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/bespoke.css" />
+  </head>
+  <body>
+    <div class="header-decoration"></div>
 
-  <div class="header">
-  <div class="header-left">
-    <a href="home.html"><img src="heels/logo1.png" alt="Logo"></a>
-  </div>
-  <div class="header-right">
-    <!-- Main Navigation -->
-    <a href="home.html">Home</a>
-    <a href="index.html">Heels</a>
-    <a href="bags.html">Bags</a>
-    <a href="made_to_order.html">Bespoke</a>
-    <a href="new-arrivals.html">New</a>
-    <a href="sale.html">Sale</a>
-    
-    <!-- Secondary Navigation -->
-    <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
-    <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
-    <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
-  
-    <!-- Cart Badge -->
-    <div class="icon-badge" onclick="toggleCart()">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span class="badge-pill" id="cart-count">0</span>
-    </div>
-  
-    <!-- Wishlist Badge -->
-    <div class="icon-badge" onclick="viewWishlist()">
-      <i class="fa-solid fa-heart"></i>
-      <span class="badge-pill" id="wishlist-count">0</span>
-    </div>
-  
-    <!-- User Account -->
-    <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
-    
-    <!-- Theme Toggle -->
-    <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
-    
-    <!-- Mobile Menu Toggle -->
-    <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
-  </div>
-  </div>
-
-<!-- BESPOKE PAGE -->
-<div class="bespoke-container">
-  <div class="bespoke-header">
-    <h1>Bespoke Heels</h1>
-    <p class="bespoke-subtitle">Create your perfect pair - handcrafted to your specifications</p>
-  </div>
-
-  <div class="bespoke-content">
-    <!-- LEFT SIDE - PRODUCT PREVIEW -->
-    <div class="bespoke-preview">
-      <div class="preview-badge">Made to Order</div>
-      <div class="preview-image-container">
-        <img src="heels/green_mirror.png" alt="Your Custom Heel" id="previewImage" class="preview-image">
+    <div class="header">
+      <div class="header-left">
+        <a href="home.html"><img src="heels/logo1.png" alt="Logo" /></a>
       </div>
-      
-      <div class="preview-summary">
-        <h3>Your Custom Design</h3>
-        <div class="summary-item">
-          <span class="summary-label">Heel Height:</span>
-          <span class="summary-value" id="summaryHeight">Not Selected</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Material:</span>
-          <span class="summary-value" id="summaryMaterial">Not Selected</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Color:</span>
-          <span class="summary-value" id="summaryColor">Not Selected</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Size:</span>
-          <span class="summary-value" id="summarySize">Not Selected</span>
-        </div>
-        <div class="summary-price">
-          <span class="summary-label">Estimated Price:</span>
-          <span class="summary-value" id="summaryPrice">NIS 0.00</span>
-        </div>
-      </div>
+      <div class="header-right">
+        <!-- Main Navigation -->
+        <a href="home.html">Home</a>
+        <a href="heels.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html">New</a>
+        <a href="sale.html">Sale</a>
 
-      <div class="preview-info">
-        <div class="info-item">
-          <i class="fa-solid fa-clock"></i>
-          <div>
-            <strong>Production Time</strong>
-            <p>4-6 weeks</p>
-          </div>
+        <!-- Secondary Navigation -->
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> <span>Track Order</span></a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i>
+          <span>Store Locator</span></a
+        >
+        <a href="contact.html"
+          ><i class="fa-solid fa-phone"></i> <span>Contact</span></a
+        >
+
+        <!-- Cart Badge -->
+        <div class="icon-badge" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge-pill" id="cart-count">0</span>
         </div>
-        <div class="info-item">
-          <i class="fa-solid fa-hand-sparkles"></i>
-          <div>
-            <strong>Handcrafted</strong>
-            <p>By Italian artisans</p>
-          </div>
+
+        <!-- Wishlist Badge -->
+        <div class="icon-badge" onclick="viewWishlist()">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge-pill" id="wishlist-count">0</span>
         </div>
-        <div class="info-item">
-          <i class="fa-solid fa-certificate"></i>
-          <div>
-            <strong>Quality Guarantee</strong>
-            <p>Premium materials</p>
-          </div>
-        </div>
+
+        <!-- User Account -->
+        <a href="login.html" id="user-link"
+          ><i class="fa-solid fa-user"></i> <span>Login</span></a
+        >
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
 
-    <!-- RIGHT SIDE - CUSTOMIZATION OPTIONS -->
-    <div class="bespoke-options">
-      <!-- HEEL HEIGHT SELECTOR -->
-      <div class="option-section">
-        <h3 class="option-title">
-          <span class="step-number">1</span>
-          Select Heel Height
-        </h3>
-        <p class="option-description">Choose your preferred heel height for optimal comfort and style</p>
-        
-        <div class="circular-selector heel-selector">
-          <div class="circular-option" data-height="70mm" data-price="350" onclick="selectHeelHeight(this)">
-            <div class="circular-image">
-              <img src="heels/70mm.png" alt="70mm Heel">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
+    <!-- BESPOKE PAGE -->
+    <div class="bespoke-container">
+      <div class="bespoke-header">
+        <h1>Bespoke Heels</h1>
+        <p class="bespoke-subtitle">
+          Create your perfect pair - handcrafted to your specifications
+        </p>
+      </div>
+
+      <div class="bespoke-content">
+        <!-- LEFT SIDE - PRODUCT PREVIEW -->
+        <div class="bespoke-preview">
+          <div class="preview-badge">Made to Order</div>
+          <div class="preview-image-container">
+            <img
+              src="heels/green_mirror.png"
+              alt="Your Custom Heel"
+              id="previewImage"
+              class="preview-image"
+            />
+          </div>
+
+          <div class="preview-summary">
+            <h3>Your Custom Design</h3>
+            <div class="summary-item">
+              <span class="summary-label">Heel Height:</span>
+              <span class="summary-value" id="summaryHeight">Not Selected</span>
             </div>
-            <div class="circular-label">
-              <span class="option-name">Kitten</span>
-              <span class="option-detail">70mm</span>
+            <div class="summary-item">
+              <span class="summary-label">Material:</span>
+              <span class="summary-value" id="summaryMaterial"
+                >Not Selected</span
+              >
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Color:</span>
+              <span class="summary-value" id="summaryColor">Not Selected</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Size:</span>
+              <span class="summary-value" id="summarySize">Not Selected</span>
+            </div>
+            <div class="summary-price">
+              <span class="summary-label">Estimated Price:</span>
+              <span class="summary-value" id="summaryPrice">NIS 0.00</span>
             </div>
           </div>
 
-          <div class="circular-option" data-height="85mm" data-price="380" onclick="selectHeelHeight(this)">
-            <div class="circular-image">
-              <img src="heels/85mm.png" alt="85mm Heel">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
+          <div class="preview-info">
+            <div class="info-item">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <strong>Production Time</strong>
+                <p>4-6 weeks</p>
+              </div>
             </div>
-            <div class="circular-label">
-              <span class="option-name">Mid</span>
-              <span class="option-detail">85mm</span>
+            <div class="info-item">
+              <i class="fa-solid fa-hand-sparkles"></i>
+              <div>
+                <strong>Handcrafted</strong>
+                <p>By Italian artisans</p>
+              </div>
             </div>
-          </div>
-
-          <div class="circular-option active" data-height="105mm" data-price="420" onclick="selectHeelHeight(this)">
-            <div class="circular-image">
-              <img src="heels/105mm.png" alt="105mm Heel">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Classic</span>
-              <span class="option-detail">105mm</span>
-            </div>
-          </div>
-
-          <div class="circular-option" data-height="120mm" data-price="450" onclick="selectHeelHeight(this)">
-            <div class="circular-image">
-              <img src="heels/heel_120mm.png" alt="120mm Heel">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">High</span>
-              <span class="option-detail">120mm</span>
+            <div class="info-item">
+              <i class="fa-solid fa-certificate"></i>
+              <div>
+                <strong>Quality Guarantee</strong>
+                <p>Premium materials</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- MATERIAL SELECTOR -->
-      <div class="option-section">
-        <h3 class="option-title">
-          <span class="step-number">2</span>
-          Choose Material
-        </h3>
-        <p class="option-description">Select from our premium collection of finest materials</p>
-        
-        <div class="circular-selector material-selector">
-          <div class="circular-option active" data-material="leather" data-price="0" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/leather_material.webp" alt="Leather">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Leather</span>
-              <span class="option-detail">Classic</span>
+        <!-- RIGHT SIDE - CUSTOMIZATION OPTIONS -->
+        <div class="bespoke-options">
+          <!-- HEEL HEIGHT SELECTOR -->
+          <div class="option-section">
+            <h3 class="option-title">
+              <span class="step-number">1</span>
+              Select Heel Height
+            </h3>
+            <p class="option-description">
+              Choose your preferred heel height for optimal comfort and style
+            </p>
+
+            <div class="circular-selector heel-selector">
+              <div
+                class="circular-option"
+                data-height="70mm"
+                data-price="350"
+                onclick="selectHeelHeight(this)"
+              >
+                <div class="circular-image">
+                  <img src="heels/70mm.png" alt="70mm Heel" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Kitten</span>
+                  <span class="option-detail">70mm</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-height="85mm"
+                data-price="380"
+                onclick="selectHeelHeight(this)"
+              >
+                <div class="circular-image">
+                  <img src="heels/85mm.png" alt="85mm Heel" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Mid</span>
+                  <span class="option-detail">85mm</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option active"
+                data-height="105mm"
+                data-price="420"
+                onclick="selectHeelHeight(this)"
+              >
+                <div class="circular-image">
+                  <img src="heels/105mm.png" alt="105mm Heel" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Classic</span>
+                  <span class="option-detail">105mm</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-height="120mm"
+                data-price="450"
+                onclick="selectHeelHeight(this)"
+              >
+                <div class="circular-image">
+                  <img src="heels/heel_120mm.png" alt="120mm Heel" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">High</span>
+                  <span class="option-detail">120mm</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="circular-option" data-material="suede" data-price="50" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/suede_material.webp" alt="Suede">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Suede</span>
-              <span class="option-detail">+NIS 50</span>
+          <!-- MATERIAL SELECTOR -->
+          <div class="option-section">
+            <h3 class="option-title">
+              <span class="step-number">2</span>
+              Choose Material
+            </h3>
+            <p class="option-description">
+              Select from our premium collection of finest materials
+            </p>
+
+            <div class="circular-selector material-selector">
+              <div
+                class="circular-option active"
+                data-material="leather"
+                data-price="0"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img src="material/leather_material.webp" alt="Leather" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Leather</span>
+                  <span class="option-detail">Classic</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-material="suede"
+                data-price="50"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img src="material/suede_material.webp" alt="Suede" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Suede</span>
+                  <span class="option-detail">+NIS 50</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-material="satin"
+                data-price="70"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img src="material/satin_material.jpg" alt="Satin" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Satin</span>
+                  <span class="option-detail">+NIS 70</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-material="velvet"
+                data-price="80"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img src="material/velvet_material.jpg" alt="Velvet" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Velvet</span>
+                  <span class="option-detail">+NIS 80</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-material="patent"
+                data-price="60"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img
+                    src="material/patent_material.webp"
+                    alt="Patent Leather"
+                  />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Patent</span>
+                  <span class="option-detail">+NIS 60</span>
+                </div>
+              </div>
+
+              <div
+                class="circular-option"
+                data-material="glitter"
+                data-price="100"
+                onclick="selectMaterial(this)"
+              >
+                <div class="circular-image">
+                  <img src="material/glitter_material.jpg" alt="Glitter" />
+                  <div class="selection-check">
+                    <i class="fa-solid fa-check"></i>
+                  </div>
+                </div>
+                <div class="circular-label">
+                  <span class="option-name">Glitter</span>
+                  <span class="option-detail">+NIS 100</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="circular-option" data-material="satin" data-price="70" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/satin_material.jpg" alt="Satin">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Satin</span>
-              <span class="option-detail">+NIS 70</span>
+          <!-- COLOR SELECTOR -->
+          <div class="option-section">
+            <h3 class="option-title">
+              <span class="step-number">3</span>
+              Pick Your Color
+            </h3>
+            <p class="option-description">
+              Choose from our curated palette of sophisticated colors
+            </p>
+
+            <div class="color-selector-bespoke">
+              <div
+                class="color-option-bespoke active"
+                data-color="black"
+                style="background-color: #000000"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Black</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="nude"
+                style="background-color: #d4a59a"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Nude</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="red"
+                style="background-color: #c41e3a"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Red</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="navy"
+                style="background-color: #000080"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Navy</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="burgundy"
+                style="background-color: #800020"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Burgundy</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="emerald"
+                style="background-color: #50c878"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Emerald</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="pink"
+                style="background-color: #ff69b4"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Pink</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="purple"
+                style="background-color: #6a0dad"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Purple</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="silver"
+                style="background-color: #c0c0c0"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Silver</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="gold"
+                style="background-color: #ffd700"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Gold</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="white"
+                style="background-color: #ffffff; border: 2px solid #e8ecef"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">White</span>
+              </div>
+              <div
+                class="color-option-bespoke"
+                data-color="champagne"
+                style="background-color: #f7e7ce"
+                onclick="selectColor(this)"
+              >
+                <div class="color-check"><i class="fa-solid fa-check"></i></div>
+                <span class="color-name">Champagne</span>
+              </div>
             </div>
           </div>
 
-          <div class="circular-option" data-material="velvet" data-price="80" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/velvet_material.jpg" alt="Velvet">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
+          <!-- SIZE SELECTOR -->
+          <div class="option-section">
+            <h3 class="option-title">
+              <span class="step-number">4</span>
+              Select Your Size
+            </h3>
+            <p class="option-description">
+              Choose your perfect fit - we craft each pair to your exact size
+            </p>
+
+            <div class="size-selector-bespoke">
+              <div
+                class="size-option-bespoke"
+                data-size="35"
+                onclick="selectSize(this)"
+              >
+                35
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="35.5"
+                onclick="selectSize(this)"
+              >
+                35.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="36"
+                onclick="selectSize(this)"
+              >
+                36
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="36.5"
+                onclick="selectSize(this)"
+              >
+                36.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="37"
+                onclick="selectSize(this)"
+              >
+                37
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="37.5"
+                onclick="selectSize(this)"
+              >
+                37.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="38"
+                onclick="selectSize(this)"
+              >
+                38
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="38.5"
+                onclick="selectSize(this)"
+              >
+                38.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="39"
+                onclick="selectSize(this)"
+              >
+                39
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="39.5"
+                onclick="selectSize(this)"
+              >
+                39.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="40"
+                onclick="selectSize(this)"
+              >
+                40
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="40.5"
+                onclick="selectSize(this)"
+              >
+                40.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="41"
+                onclick="selectSize(this)"
+              >
+                41
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="41.5"
+                onclick="selectSize(this)"
+              >
+                41.5
+              </div>
+              <div
+                class="size-option-bespoke"
+                data-size="42"
+                onclick="selectSize(this)"
+              >
+                42
+              </div>
             </div>
-            <div class="circular-label">
-              <span class="option-name">Velvet</span>
-              <span class="option-detail">+NIS 80</span>
-            </div>
+
+            <a
+              href="#"
+              class="size-guide-link"
+              onclick="showSizeGuide(); return false;"
+            >
+              <i class="fa-solid fa-ruler"></i> View Size Guide
+            </a>
           </div>
 
-          <div class="circular-option" data-material="patent" data-price="60" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/patent_material.webp" alt="Patent Leather">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Patent</span>
-              <span class="option-detail">+NIS 60</span>
-            </div>
+          <!-- SPECIAL REQUESTS -->
+          <div class="option-section">
+            <h3 class="option-title">
+              <span class="step-number">5</span>
+              Special Requests (Optional)
+            </h3>
+            <p class="option-description">
+              Share any specific requirements or customizations
+            </p>
+
+            <textarea
+              class="special-requests"
+              id="specialRequests"
+              placeholder="Tell us about any special requirements, customizations, or preferences for your bespoke heels..."
+              rows="4"
+            ></textarea>
           </div>
 
-          <div class="circular-option" data-material="glitter" data-price="100" onclick="selectMaterial(this)">
-            <div class="circular-image">
-              <img src="material/glitter_material.jpg" alt="Glitter">
-              <div class="selection-check"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="circular-label">
-              <span class="option-name">Glitter</span>
-              <span class="option-detail">+NIS 100</span>
-            </div>
+          <!-- ACTION BUTTONS -->
+          <div class="bespoke-actions">
+            <button class="btn-primary-bespoke" onclick="addBespokeToCart()">
+              <i class="fa-solid fa-cart-shopping"></i>
+              Add to Cart
+            </button>
+            <button class="btn-secondary-bespoke" onclick="saveBespokeDesign()">
+              <i class="fa-solid fa-bookmark"></i>
+              Save Design
+            </button>
+          </div>
+
+          <!-- BESPOKE INFO -->
+          <div class="bespoke-info-box">
+            <h4>
+              <i class="fa-solid fa-info-circle"></i> About Our Bespoke Service
+            </h4>
+            <ul>
+              <li>Each pair is handcrafted by skilled Italian artisans</li>
+              <li>Production time: 4-6 weeks from order confirmation</li>
+              <li>Free worldwide shipping on all bespoke orders</li>
+              <li>30-day satisfaction guarantee</li>
+              <li>Complimentary alterations if needed</li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- COLOR SELECTOR -->
-      <div class="option-section">
-        <h3 class="option-title">
-          <span class="step-number">3</span>
-          Pick Your Color
-        </h3>
-        <p class="option-description">Choose from our curated palette of sophisticated colors</p>
-        
-        <div class="color-selector-bespoke">
-          <div class="color-option-bespoke active" data-color="black" style="background-color: #000000;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Black</span>
-          </div>
-          <div class="color-option-bespoke" data-color="nude" style="background-color: #D4A59A;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Nude</span>
-          </div>
-          <div class="color-option-bespoke" data-color="red" style="background-color: #C41E3A;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Red</span>
-          </div>
-          <div class="color-option-bespoke" data-color="navy" style="background-color: #000080;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Navy</span>
-          </div>
-          <div class="color-option-bespoke" data-color="burgundy" style="background-color: #800020;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Burgundy</span>
-          </div>
-          <div class="color-option-bespoke" data-color="emerald" style="background-color: #50C878;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Emerald</span>
-          </div>
-          <div class="color-option-bespoke" data-color="pink" style="background-color: #FF69B4;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Pink</span>
-          </div>
-          <div class="color-option-bespoke" data-color="purple" style="background-color: #6A0DAD;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Purple</span>
-          </div>
-          <div class="color-option-bespoke" data-color="silver" style="background-color: #C0C0C0;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Silver</span>
-          </div>
-          <div class="color-option-bespoke" data-color="gold" style="background-color: #FFD700;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Gold</span>
-          </div>
-          <div class="color-option-bespoke" data-color="white" style="background-color: #FFFFFF; border: 2px solid #e8ecef;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">White</span>
-          </div>
-          <div class="color-option-bespoke" data-color="champagne" style="background-color: #F7E7CE;" onclick="selectColor(this)">
-            <div class="color-check"><i class="fa-solid fa-check"></i></div>
-            <span class="color-name">Champagne</span>
-          </div>
+    <!-- SHOPPING CART SIDEBAR -->
+    <div id="cartSidebar" class="cart-sidebar">
+      <div class="cart-header">
+        <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+        <button class="cart-close" onclick="toggleCart()">&times;</button>
+      </div>
+
+      <div class="cart-items" id="cartItemsContainer">
+        <div class="cart-empty">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <p>Your bag is empty</p>
         </div>
       </div>
 
-      <!-- SIZE SELECTOR -->
-      <div class="option-section">
-        <h3 class="option-title">
-          <span class="step-number">4</span>
-          Select Your Size
-        </h3>
-        <p class="option-description">Choose your perfect fit - we craft each pair to your exact size</p>
-        
-        <div class="size-selector-bespoke">
-          <div class="size-option-bespoke" data-size="35" onclick="selectSize(this)">35</div>
-          <div class="size-option-bespoke" data-size="35.5" onclick="selectSize(this)">35.5</div>
-          <div class="size-option-bespoke" data-size="36" onclick="selectSize(this)">36</div>
-          <div class="size-option-bespoke" data-size="36.5" onclick="selectSize(this)">36.5</div>
-          <div class="size-option-bespoke" data-size="37" onclick="selectSize(this)">37</div>
-          <div class="size-option-bespoke" data-size="37.5" onclick="selectSize(this)">37.5</div>
-          <div class="size-option-bespoke" data-size="38" onclick="selectSize(this)">38</div>
-          <div class="size-option-bespoke" data-size="38.5" onclick="selectSize(this)">38.5</div>
-          <div class="size-option-bespoke" data-size="39" onclick="selectSize(this)">39</div>
-          <div class="size-option-bespoke" data-size="39.5" onclick="selectSize(this)">39.5</div>
-          <div class="size-option-bespoke" data-size="40" onclick="selectSize(this)">40</div>
-          <div class="size-option-bespoke" data-size="40.5" onclick="selectSize(this)">40.5</div>
-          <div class="size-option-bespoke" data-size="41" onclick="selectSize(this)">41</div>
-          <div class="size-option-bespoke" data-size="41.5" onclick="selectSize(this)">41.5</div>
-          <div class="size-option-bespoke" data-size="42" onclick="selectSize(this)">42</div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span>SUBTOTAL</span>
+          <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
         </div>
-        
-        <a href="#" class="size-guide-link" onclick="showSizeGuide(); return false;">
-          <i class="fa-solid fa-ruler"></i> View Size Guide
-        </a>
-      </div>
-
-      <!-- SPECIAL REQUESTS -->
-      <div class="option-section">
-        <h3 class="option-title">
-          <span class="step-number">5</span>
-          Special Requests (Optional)
-        </h3>
-        <p class="option-description">Share any specific requirements or customizations</p>
-        
-        <textarea class="special-requests" id="specialRequests" placeholder="Tell us about any special requirements, customizations, or preferences for your bespoke heels..." rows="4"></textarea>
-      </div>
-
-      <!-- ACTION BUTTONS -->
-      <div class="bespoke-actions">
-        <button class="btn-primary-bespoke" onclick="addBespokeToCart()">
-          <i class="fa-solid fa-cart-shopping"></i>
-          Add to Cart
+        <button class="checkout-btn" onclick="proceedToCheckout()">
+          CHECKOUT
         </button>
-        <button class="btn-secondary-bespoke" onclick="saveBespokeDesign()">
-          <i class="fa-solid fa-bookmark"></i>
-          Save Design
-        </button>
-      </div>
-
-      <!-- BESPOKE INFO -->
-      <div class="bespoke-info-box">
-        <h4><i class="fa-solid fa-info-circle"></i> About Our Bespoke Service</h4>
-        <ul>
-          <li>Each pair is handcrafted by skilled Italian artisans</li>
-          <li>Production time: 4-6 weeks from order confirmation</li>
-          <li>Free worldwide shipping on all bespoke orders</li>
-          <li>30-day satisfaction guarantee</li>
-          <li>Complimentary alterations if needed</li>
-        </ul>
+        <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- SHOPPING CART SIDEBAR -->
-<div id="cartSidebar" class="cart-sidebar">
-  <div class="cart-header">
-    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
-    <button class="cart-close" onclick="toggleCart()">&times;</button>
-  </div>
-  
-  <div class="cart-items" id="cartItemsContainer">
-    <div class="cart-empty">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <p>Your bag is empty</p>
-    </div>
-  </div>
-  
-  <div class="cart-footer">
-    <div class="cart-subtotal">
-      <span>SUBTOTAL</span>
-      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
-    </div>
-    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
-    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
-  </div>
-</div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> |
+        <a href="#">Help</a>
+      </p>
+    </footer>
 
-<footer>
-<p>&copy; 2025 Stilleto | All rights reserved.</p>
-<p>
-  <a href="#">Privacy Policy</a> | 
-  <a href="#">Terms of Service</a> | 
-  <a href="#">Help</a>
-</p>
-</footer>
-
-<script src="js/auth.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/global-functions.js"></script>
-<script src="js/bespoke.js"></script>
-
-</body>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/global-functions.js"></script>
+    <script src="js/bespoke.js"></script>
+  </body>
 </html>

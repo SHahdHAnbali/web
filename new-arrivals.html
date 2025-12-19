@@ -1,364 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>New Arrivals - Stilleto</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/index.css">
-<style>
-.new-arrivals-banner {
-  background: linear-gradient(135deg, #8C28B6 0%, #c0392b 100%);
-  color: white;
-  padding: 80px 40px;
-  text-align: center;
-}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Arrivals - Stilleto</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <style>
+      .new-arrivals-banner {
+        background: linear-gradient(135deg, #8c28b6 0%, #c0392b 100%);
+        color: white;
+        padding: 80px 40px;
+        text-align: center;
+      }
 
-.new-arrivals-banner h1 {
-  font-size: 48px;
-  font-weight: 800;
-  margin: 0 0 15px 0;
-  letter-spacing: -1px;
-}
+      .new-arrivals-banner h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin: 0 0 15px 0;
+        letter-spacing: -1px;
+      }
 
-.new-arrivals-banner p {
-  font-size: 18px;
-  margin: 0;
-  opacity: 0.9;
-}
+      .new-arrivals-banner p {
+        font-size: 18px;
+        margin: 0;
+        opacity: 0.9;
+      }
 
-.arrival-badge {
-  display: inline-block;
-  padding: 8px 20px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
+      .arrival-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
 
-.filters-bar {
-  max-width: 1400px;
-  margin: 30px auto;
-  padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
+      .filters-bar {
+        max-width: 1400px;
+        margin: 30px auto;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
 
-.filter-group {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
+      .filter-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
 
-.filter-btn {
-  padding: 12px 24px;
-  border: 2px solid #e8ecef;
-  background: white;
-  border-radius: 25px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-size: 14px;
-}
+      .filter-btn {
+        padding: 12px 24px;
+        border: 2px solid #e8ecef;
+        background: white;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 14px;
+      }
 
-.filter-btn:hover, .filter-btn.active {
-  border-color: #8C28B6;
-  background: #8C28B6;
-  color: white;
-}
+      .filter-btn:hover,
+      .filter-btn.active {
+        border-color: #8c28b6;
+        background: #8c28b6;
+        color: white;
+      }
 
-body.dark .filter-btn {
-  background: #2c3e50;
-  border-color: #34495e;
-  color: #ecf0f1;
-}
+      body.dark .filter-btn {
+        background: #2c3e50;
+        border-color: #34495e;
+        color: #ecf0f1;
+      }
 
-body.dark .filter-btn:hover, body.dark .filter-btn.active {
-  background: #8C28B6;
-  border-color: #8C28B6;
-}
-</style>
-</head>
-<body>
-<div class="header-decoration"></div>
+      body.dark .filter-btn:hover,
+      body.dark .filter-btn.active {
+        background: #8c28b6;
+        border-color: #8c28b6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-decoration"></div>
 
-<div class="header">
-<div class="header-left">
-  <a href="home.html"><img src="heels/logo1.png" alt="Logo"></a>
-</div>
-<div class="header-right">
-  <a href="home.html">Home</a>
-  <a href="index.html">Heels</a>
-  <a href="bags.html">Bags</a>
-  <a href="made_to_order.html">Bespoke</a>
-  <a href="new-arrivals.html" class="active">New</a>
-  <a href="sale.html">Sale</a>
-  <a href="track_order.html"><i class="fa-solid fa-truck"></i> <span>Track Order</span></a>
-  <a href="store_locator.html"><i class="fa-solid fa-location-dot"></i> <span>Store Locator</span></a>
-  <a href="contact.html"><i class="fa-solid fa-phone"></i> <span>Contact</span></a>
+    <div class="header">
+      <div class="header-left">
+        <a href="home.html"><img src="heels/logo1.png" alt="Logo" /></a>
+      </div>
+      <div class="header-right">
+        <a href="home.html">Home</a>
+        <a href="heels.html">Heels</a>
+        <a href="bags.html">Bags</a>
+        <a href="made_to_order.html">Bespoke</a>
+        <a href="new-arrivals.html" class="active">New</a>
+        <a href="sale.html">Sale</a>
+        <a href="track_order.html"
+          ><i class="fa-solid fa-truck"></i> <span>Track Order</span></a
+        >
+        <a href="store_locator.html"
+          ><i class="fa-solid fa-location-dot"></i>
+          <span>Store Locator</span></a
+        >
+        <a href="contact.html"
+          ><i class="fa-solid fa-phone"></i> <span>Contact</span></a
+        >
 
-  <div class="icon-badge" onclick="toggleCart()">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <span class="badge-pill" id="cart-count">0</span>
-  </div>
+        <div class="icon-badge" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge-pill" id="cart-count">0</span>
+        </div>
 
-  <div class="icon-badge" onclick="viewWishlist()">
-    <i class="fa-solid fa-heart"></i>
-    <span class="badge-pill" id="wishlist-count">0</span>
-  </div>
+        <div class="icon-badge" onclick="viewWishlist()">
+          <i class="fa-solid fa-heart"></i>
+          <span class="badge-pill" id="wishlist-count">0</span>
+        </div>
 
-  <a href="login.html" id="user-link"><i class="fa-solid fa-user"></i> <span>Login</span></a>
-  <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
-  <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
-</div>
-</div>
-
-<!-- BANNER -->
-<div class="new-arrivals-banner">
-  <span class="arrival-badge">Just In</span>
-  <h1>New Arrivals</h1>
-  <p>Discover our latest collection of luxury heels and bags</p>
-</div>
-
-<!-- FILTERS -->
-<div class="filters-bar">
-  <div class="filter-group">
-    <button class="filter-btn active" onclick="filterCategory('all')">All</button>
-    <button class="filter-btn" onclick="filterCategory('heels')">Heels</button>
-    <button class="filter-btn" onclick="filterCategory('bags')">Bags</button>
-  </div>
-  <div class="filter-group">
-    <select id="sort-select" class="filter-btn" onchange="sortProducts(this.value)">
-      <option value="newest">Newest First</option>
-      <option value="price-low">Price: Low to High</option>
-      <option value="price-high">Price: High to Low</option>
-    </select>
-  </div>
-</div>
-
-<!-- PRODUCTS GRID -->
-<div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 40px 80px;">
-  <div class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
-    
-    <!-- Product 1 -->
-    <div class="product" data-category="heels" data-price="120" data-date="2025-01-20">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/green_mirror.png" alt="Green Mirror Pumps">
-      <h3>Green Mirror Pumps</h3>
-      <div class="price">NIS 120.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Green Mirror Pumps', 'NIS 120.00', 'heels/green_mirror.png', '35')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
+        <a href="login.html" id="user-link"
+          ><i class="fa-solid fa-user"></i> <span>Login</span></a
+        >
+        <div class="theme-toggle"><i class="fa-solid fa-moon"></i></div>
+        <button class="toggle-sidebar"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
 
-    <!-- Product 2 -->
-    <div class="product" data-category="heels" data-price="150" data-date="2025-01-19">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/dark_pink_suede.png" alt="Pink Suede Heels">
-      <h3>Pink Suede Heels</h3>
-      <div class="price">NIS 150.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Pink Suede Heels', 'NIS 150.00', 'heels/dark_pink_suede.png', '36')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
+    <!-- BANNER -->
+    <div class="new-arrivals-banner">
+      <span class="arrival-badge">Just In</span>
+      <h1>New Arrivals</h1>
+      <p>Discover our latest collection of luxury heels and bags</p>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-bar">
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="filterCategory('all')">
+          All
+        </button>
+        <button class="filter-btn" onclick="filterCategory('heels')">
+          Heels
+        </button>
+        <button class="filter-btn" onclick="filterCategory('bags')">
+          Bags
+        </button>
+      </div>
+      <div class="filter-group">
+        <select
+          id="sort-select"
+          class="filter-btn"
+          onchange="sortProducts(this.value)"
+        >
+          <option value="newest">Newest First</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+        </select>
       </div>
     </div>
 
-    <!-- Product 3 -->
-    <div class="product" data-category="heels" data-price="180" data-date="2025-01-18">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/dark_purple_suede.png" alt="Purple Suede Heels">
-      <h3>Purple Suede Heels</h3>
-      <div class="price">NIS 180.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Purple Suede Heels', 'NIS 180.00', 'heels/dark_purple_suede.png', '37')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
+    <!-- PRODUCTS GRID -->
+    <div
+      class="container"
+      style="max-width: 1400px; margin: 0 auto; padding: 0 40px 80px"
+    >
+      <div
+        class="products"
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 30px;
+        "
+      >
+        <!-- Product 1 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="120"
+          data-date="2025-01-20"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/green_mirror.png" alt="Green Mirror Pumps" />
+          <h3>Green Mirror Pumps</h3>
+          <div class="price">NIS 120.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Green Mirror Pumps', 'NIS 120.00', 'heels/green_mirror.png', '35')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="150"
+          data-date="2025-01-19"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/dark_pink_suede.png" alt="Pink Suede Heels" />
+          <h3>Pink Suede Heels</h3>
+          <div class="price">NIS 150.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Pink Suede Heels', 'NIS 150.00', 'heels/dark_pink_suede.png', '36')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="180"
+          data-date="2025-01-18"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/dark_purple_suede.png" alt="Purple Suede Heels" />
+          <h3>Purple Suede Heels</h3>
+          <div class="price">NIS 180.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Purple Suede Heels', 'NIS 180.00', 'heels/dark_purple_suede.png', '37')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div
+          class="product"
+          data-category="bags"
+          data-price="120"
+          data-date="2025-01-17"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="bags/strath_burgundy1.png" alt="Burgundy Mini Bag" />
+          <h3>Burgundy Mini Bag</h3>
+          <div class="price">NIS 120.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Burgundy Mini Bag', 'NIS 120.00', 'bags/strath_burgundy1.png', 'mini bag')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="200"
+          data-date="2025-01-16"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/silver.png" alt="Silver Metallic Pumps" />
+          <h3>Silver Metallic Pumps</h3>
+          <div class="price">NIS 200.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Silver Metallic Pumps', 'NIS 200.00', 'heels/silver.png', '37')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="190"
+          data-date="2025-01-15"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/gold.png" alt="Gold Metallic Heels" />
+          <h3>Gold Metallic Heels</h3>
+          <div class="price">NIS 190.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Gold Metallic Heels', 'NIS 190.00', 'heels/gold.png', '38')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="170"
+          data-date="2025-01-14"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/dark_red_suede.png" alt="Red Suede Heels" />
+          <h3>Red Suede Heels</h3>
+          <div class="price">NIS 170.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Red Suede Heels', 'NIS 170.00', 'heels/dark_red_suede.png', '36')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div
+          class="product"
+          data-category="heels"
+          data-price="160"
+          data-date="2025-01-13"
+        >
+          <div class="product-badge new">New</div>
+          <i class="fa-solid fa-heart wishlist"></i>
+          <img src="heels/dark_green_suede.png" alt="Green Suede Heels" />
+          <h3>Green Suede Heels</h3>
+          <div class="price">NIS 160.00</div>
+          <div class="rating">★★★★★</div>
+          <div class="actions">
+            <button
+              onclick="quickAdd(this, 'Green Suede Heels', 'NIS 160.00', 'heels/dark_green_suede.png', '37')"
+            >
+              Add to Cart
+            </button>
+            <button class="quick-view-btn">Quick View</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Product 4 -->
-    <div class="product" data-category="bags" data-price="120" data-date="2025-01-17">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="bags/strath_burgundy1.png" alt="Burgundy Mini Bag">
-      <h3>Burgundy Mini Bag</h3>
-      <div class="price">NIS 120.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Burgundy Mini Bag', 'NIS 120.00', 'bags/strath_burgundy1.png', 'mini bag')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
+    <!-- CART SIDEBAR -->
+    <div id="cartSidebar" class="cart-sidebar">
+      <div class="cart-header">
+        <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
+        <button class="cart-close" onclick="toggleCart()">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItemsContainer"></div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span>SUBTOTAL</span>
+          <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="proceedToCheckout()">
+          CHECKOUT
+        </button>
+        <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
       </div>
     </div>
 
-    <!-- Product 5 -->
-    <div class="product" data-category="heels" data-price="200" data-date="2025-01-16">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/silver.png" alt="Silver Metallic Pumps">
-      <h3>Silver Metallic Pumps</h3>
-      <div class="price">NIS 200.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Silver Metallic Pumps', 'NIS 200.00', 'heels/silver.png', '37')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
-      </div>
-    </div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-    <!-- Product 6 -->
-    <div class="product" data-category="heels" data-price="190" data-date="2025-01-15">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/gold.png" alt="Gold Metallic Heels">
-      <h3>Gold Metallic Heels</h3>
-      <div class="price">NIS 190.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Gold Metallic Heels', 'NIS 190.00', 'heels/gold.png', '38')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
-      </div>
-    </div>
+    <footer>
+      <p>&copy; 2025 Stilleto | All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> |
+        <a href="#">Help</a>
+      </p>
+    </footer>
 
-    <!-- Product 7 -->
-    <div class="product" data-category="heels" data-price="170" data-date="2025-01-14">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/dark_red_suede.png" alt="Red Suede Heels">
-      <h3>Red Suede Heels</h3>
-      <div class="price">NIS 170.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Red Suede Heels', 'NIS 170.00', 'heels/dark_red_suede.png', '36')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
-      </div>
-    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/global-functions.js"></script>
 
-    <!-- Product 8 -->
-    <div class="product" data-category="heels" data-price="160" data-date="2025-01-13">
-      <div class="product-badge new">New</div>
-      <i class="fa-solid fa-heart wishlist"></i>
-      <img src="heels/dark_green_suede.png" alt="Green Suede Heels">
-      <h3>Green Suede Heels</h3>
-      <div class="price">NIS 160.00</div>
-      <div class="rating">★★★★★</div>
-      <div class="actions">
-        <button onclick="quickAdd(this, 'Green Suede Heels', 'NIS 160.00', 'heels/dark_green_suede.png', '37')">Add to Cart</button>
-        <button class="quick-view-btn">Quick View</button>
-      </div>
-    </div>
+    <script>
+      // Quick add to cart
+      function quickAdd(button, title, price, image, size) {
+        addToCartGlobal({ title, price, image, size, quantity: 1 });
+        button.textContent = "✓ Added!";
+        button.style.background = "#27ae60";
+        setTimeout(() => {
+          button.textContent = "Add to Cart";
+          button.style.background = "";
+        }, 1500);
+      }
 
-  </div>
-</div>
+      // Filter by category
+      function filterCategory(category) {
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
 
-<!-- CART SIDEBAR -->
-<div id="cartSidebar" class="cart-sidebar">
-  <div class="cart-header">
-    <h2>MY BAG (<span id="cart-items-count">0</span>)</h2>
-    <button class="cart-close" onclick="toggleCart()">&times;</button>
-  </div>
-  <div class="cart-items" id="cartItemsContainer"></div>
-  <div class="cart-footer">
-    <div class="cart-subtotal">
-      <span>SUBTOTAL</span>
-      <span class="subtotal-amount" id="cartSubtotal">NIS 0.00</span>
-    </div>
-    <button class="checkout-btn" onclick="proceedToCheckout()">CHECKOUT</button>
-    <button class="view-bag-btn" onclick="viewBag()">VIEW BAG</button>
-  </div>
-</div>
+        document.querySelectorAll(".product").forEach((product) => {
+          if (category === "all" || product.dataset.category === category) {
+            product.style.display = "block";
+          } else {
+            product.style.display = "none";
+          }
+        });
+      }
 
-<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+      // Sort products
+      function sortProducts(sortType) {
+        const container = document.querySelector(".products");
+        const products = Array.from(container.querySelectorAll(".product"));
 
-<footer>
-<p>&copy; 2025 Stilleto | All rights reserved.</p>
-<p>
-  <a href="#">Privacy Policy</a> | 
-  <a href="#">Terms of Service</a> | 
-  <a href="#">Help</a>
-</p>
-</footer>
+        products.sort((a, b) => {
+          if (sortType === "newest") {
+            return new Date(b.dataset.date) - new Date(a.dataset.date);
+          } else if (sortType === "price-low") {
+            return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+          } else if (sortType === "price-high") {
+            return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+          }
+        });
 
-<script src="js/auth.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/global-functions.js"></script>
+        container.innerHTML = "";
+        products.forEach((product) => container.appendChild(product));
+      }
 
-<script>
-// Quick add to cart
-function quickAdd(button, title, price, image, size) {
-  addToCartGlobal({ title, price, image, size, quantity: 1 });
-  button.textContent = '✓ Added!';
-  button.style.background = '#27ae60';
-  setTimeout(() => {
-    button.textContent = 'Add to Cart';
-    button.style.background = '';
-  }, 1500);
-}
+      // Theme toggle
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        const icon = document.querySelector(".theme-toggle i");
+        icon.className = document.body.classList.contains("dark")
+          ? "fa-solid fa-sun"
+          : "fa-solid fa-moon";
+      });
 
-// Filter by category
-function filterCategory(category) {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  event.target.classList.add('active');
-  
-  document.querySelectorAll('.product').forEach(product => {
-    if (category === 'all' || product.dataset.category === category) {
-      product.style.display = 'block';
-    } else {
-      product.style.display = 'none';
-    }
-  });
-}
-
-// Sort products
-function sortProducts(sortType) {
-  const container = document.querySelector('.products');
-  const products = Array.from(container.querySelectorAll('.product'));
-  
-  products.sort((a, b) => {
-    if (sortType === 'newest') {
-      return new Date(b.dataset.date) - new Date(a.dataset.date);
-    } else if (sortType === 'price-low') {
-      return parseInt(a.dataset.price) - parseInt(b.dataset.price);
-    } else if (sortType === 'price-high') {
-      return parseInt(b.dataset.price) - parseInt(a.dataset.price);
-    }
-  });
-  
-  container.innerHTML = '';
-  products.forEach(product => container.appendChild(product));
-}
-
-// Theme toggle
-document.querySelector('.theme-toggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const icon = document.querySelector('.theme-toggle i');
-  icon.className = document.body.classList.contains('dark') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-});
-
-// Wishlist functionality
-document.querySelectorAll('.wishlist').forEach(icon => {
-  icon.addEventListener('click', function(e) {
-    e.stopPropagation();
-    this.classList.toggle('active');
-    if (this.classList.contains('active')) {
-      this.style.color = '#e74c3c';
-    } else {
-      this.style.color = '';
-    }
-  });
-});
-</script>
-
-</body>
+      // Wishlist functionality
+      document.querySelectorAll(".wishlist").forEach((icon) => {
+        icon.addEventListener("click", function (e) {
+          e.stopPropagation();
+          this.classList.toggle("active");
+          if (this.classList.contains("active")) {
+            this.style.color = "#e74c3c";
+          } else {
+            this.style.color = "";
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
